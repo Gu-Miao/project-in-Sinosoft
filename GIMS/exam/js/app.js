@@ -24,11 +24,6 @@ $(function() {
         exam_notes.append($("<p>" + config.exam_notes[i] + "</p>"))
     }
 
-    // 修改考试须知最大高度
-    if(!Number(times.html())) {
-        exam_notes.css("height", "400px");
-    }
-
     // 显示历史成绩
     if(Number(times.html())) {
         history.removeClass("hide");

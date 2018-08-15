@@ -1,3 +1,5 @@
+// 模拟考试须知的数据，不用时删除即可
+
 var config = {};
 
 config.exam_notes = [];
