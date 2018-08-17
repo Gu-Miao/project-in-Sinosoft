@@ -1,26 +1,30 @@
 $(function() {
 
 
-    initCanvas(seatData, ".seating-canvas-left");
+    // 初始化座位画布
+    initSeatCanvas(seatData, "t1");
+    initSeatCanvas(seatData, "t2");
+    initSeatCanvas(seatData, "t3");
 
-    var canvas = $("canvas");
+    var seatCanvas = $(".seat-canvas");
 
-    $(canvas).click(clickCanvas);
-    $(canvas).mousemove(changePointer);
-    $(canvas).mouseout(function() {
+    $(seatCanvas).click(clickCanvas);
+    $(seatCanvas).mousemove(changePointer);
+    $(seatCanvas).mouseout(function() {
         $("body").css("cursor", "default");
     });
 
     /*
     ** 渲染画布
-    ** @data 传入的数据
+    ** @data    { object }  传入的数据
+    ** @target  { string }  目标画布
     */
-    function initCanvas(data, target) {
+    function initSeatCanvas(data, target) {
 
         // 获取 canvas
-        var canvas = $(target)[0];
-        canvas.width = data.t1.width;
-        canvas.height = data.t1.height;
+        var canvas = $("canvas")[target.split("t")[1]-1];
+        canvas.width = data[target].width;
+        canvas.height = data[target].height;
         var ctx = canvas.getContext("2d");
     
         // // 初始化标题
@@ -37,10 +41,10 @@ $(function() {
         }
 
         ss.ss5.onload = function() {
-            for(let i = 0; i < seatData.t1.row; ++i) {
-                for(let j = 0; j < seatData.t1.col; ++j) {
-                    var img = ss["ss"+data.t1.seats[i][j].state];
-                    ctx.drawImage(img, 0, 0, img.width, img.height, seatData.t1.firstPadding.x+i*(seatData.seatSize.width+seatData.t1.seatMargin.x), seatData.t1.firstPadding.y+j*(seatData.seatSize.height+seatData.t1.seatMargin.y), seatData.seatSize.width, seatData.seatSize.width);
+            for(let i = 0; i < seatData[target].row; ++i) {
+                for(let j = 0; j < seatData[target].col; ++j) {
+                    var img = ss["ss"+data[target].seats[i][j].state];
+                    ctx.drawImage(img, 0, 0, img.width, img.height, seatData[target].firstPadding.x+i*(seatData.seatSize.width+seatData[target].seatMargin.x), seatData[target].firstPadding.y+j*(seatData.seatSize.height+seatData[target].seatMargin.y), seatData.seatSize.width, seatData.seatSize.width);
                 }
             }
         }
@@ -51,7 +55,10 @@ $(function() {
     **  @event event对象
     */
     function changePointer(event) {
-        if(isOnSeat(event.offsetX, event.offsetY)) {
+
+        var target = getCanvasIndex(event);
+
+        if(isOnSeat(event.offsetX, event.offsetY, target)) {
             $("body").css("cursor", "pointer");
         } else {
             $("body").css("cursor", "default");
@@ -63,19 +70,21 @@ $(function() {
     ** @event event对象
     */
     function clickCanvas(event) {
-        if(isOnSeat(event.offsetX, event.offsetY)){
-            var position = getSeatPosition(event.offsetX, event.offsetY);
-            var state = seatData.t1.seats[position.row-1][position.col-1].state;
+
+        var target = getCanvasIndex(event);
+
+        if(isOnSeat(event.offsetX, event.offsetY, target)){
+            var position = getSeatPosition(event.offsetX, event.offsetY, target);
+            var state = seatData[target].seats[position.row-1][position.col-1].state;
             console.log(state%2);
             if(state%2) {
                 state--;
             } else {
                 state++;
-                
             }
 
             addCheckedInfo(position, state, ".selected-box");
-            checkSeat(position, state, 1);
+            checkSeat(position, state, target);
 
         } else {
             console.log("没有点中座位");
@@ -86,13 +95,14 @@ $(function() {
     ** 判断鼠标是否在座位上
     ** @x: 鼠标在画布中的横坐标
     ** @y: 鼠标在画布中的纵坐标
+    ** @target 目标画布
     ** @return true: 在座位上, false: 不在座位上
     */
-    function isOnSeat(x, y) {
-        for(let i = 0; i < seatData.t1.row; ++i) {
-            if(x >= seatData.t1.firstPadding.x+i*(seatData.seatSize.width+seatData.t1.seatMargin.x) && x <= (seatData.t1.firstPadding.x+seatData.seatSize.width)+i*(seatData.seatSize.width+seatData.t1.seatMargin.x)) {
-                for(let j = 0; j < seatData.t1.col; ++j) {
-                    if(y >= seatData.t1.firstPadding.y+j*(seatData.seatSize.height+seatData.t1.seatMargin.y) && y <= (seatData.t1.firstPadding.y+seatData.seatSize.height)+j*(seatData.seatSize.height+seatData.t1.seatMargin.y)) {
+    function isOnSeat(x, y, target) {
+        for(let i = 0; i < seatData[target].row; ++i) {
+            if(x >= seatData[target].firstPadding.x+i*(seatData.seatSize.width+seatData[target].seatMargin.x) && x <= (seatData[target].firstPadding.x+seatData.seatSize.width)+i*(seatData.seatSize.width+seatData[target].seatMargin.x)) {
+                for(let j = 0; j < seatData[target].col; ++j) {
+                    if(y >= seatData[target].firstPadding.y+j*(seatData.seatSize.height+seatData[target].seatMargin.y) && y <= (seatData[target].firstPadding.y+seatData.seatSize.height)+j*(seatData.seatSize.height+seatData[target].seatMargin.y)) {
                         return true;
                     }
                 }
@@ -106,12 +116,13 @@ $(function() {
     ** 获取座位位置
     ** @x: 鼠标在画布中的横坐标
     ** @y: 鼠标在画布中的纵坐标
+    ** @target 画布序号
     ** @return 包含位置信息的对象
     */
-    function getSeatPosition(x, y) {
+    function getSeatPosition(x, y, target) {
         let row = 0, col = 0;
-        row = Math.ceil((x-16)/38);
-        col = Math.ceil((y-39)/43);
+        row = Math.ceil((x-seatData[target].firstPadding.x)/(seatData.seatSize.width+seatData[target].seatMargin.x));
+        col = Math.ceil((y-seatData[target].firstPadding.y)/(seatData.seatSize.height+seatData[target].seatMargin.y));
 
         return {
             row: row,
@@ -126,17 +137,20 @@ $(function() {
     ** @target 更改的座位表
     */
     function checkSeat(position, state, target) {
-        var canvas = $("canvas")[target-1];
+        var canvas = $("canvas")[target.split("t")[1]-1];
         var ctx = canvas.getContext("2d");
 
         // 修改数据中的座位的状态码
-        seatData["t"+target].seats[position.row-1][position.col-1].state = state;
+        seatData[target].seats[position.row-1][position.col-1].state = state;
 
-        ctx.clearRect(16+(position.row-1)*38, 39+(position.col-1)*43, 32, 32);
+        // 清除需要替换的区域
+        ctx.clearRect(seatData[target].firstPadding.x+(position.row-1)*(seatData.seatSize.width+seatData[target].seatMargin.x), seatData[target].firstPadding.y+(position.col-1)*(seatData.seatSize.height+seatData[target].seatMargin.y), seatData.seatSize.width, seatData.seatSize.height);
+
+        // 重新渲染
         var img = new Image();
         img.src = "images/ss" + state + ".png";
         img.onload = function() {
-            ctx.drawImage(img, 0, 0, img.width, img.height, 16+(position.row-1)*38, 39+(position.col-1)*43, 32, 32);
+            ctx.drawImage(img, 0, 0, img.width, img.height, seatData[target].firstPadding.x+(position.row-1)*(seatData.seatSize.width+seatData[target].seatMargin.x), seatData[target].firstPadding.y+(position.col-1)*(seatData.seatSize.height+seatData[target].seatMargin.y), seatData.seatSize.width, seatData.seatSize.height);
         }
     }
 
@@ -152,7 +166,7 @@ $(function() {
             if($target.find(".selected:eq(0)").html() === "未选择座位") {
                 $target.find(".selected").remove();
             }
-            $target.append('<span class="selected">' + position.row + '排' + position.col +'座</span>');
+            $target.append('<span class="selected">' + position.col + '排' + position.row +'座</span>');
         } else { // 取消选中
             $target.find(".selected:eq(-1)").remove();
             if(!$target.find(".selected").length) {
@@ -162,7 +176,19 @@ $(function() {
     }
 
     /*
-    ** 获取选中的座位
-    ** 
+    ** 获取画布序号
+    ** @event event对象
+    ** @return 画布序号
     */
+    function getCanvasIndex(event) {
+        if($(event.target).index() == 1) {
+            return "t1";
+        } else if($(event.target).index() == 3) {
+            return "t2";
+        } else if($(event.target).index() == 5) {
+            return "t3";
+        }
+
+        return "";
+    }
 });

@@ -8,6 +8,10 @@
 	<link href="css/bootstrap.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
     <link rel="icon" href="images/favicon.ico">
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+        <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
   </head>
 <body>
 
@@ -41,19 +45,25 @@
                 <div class="seating-seatnumber-side"></div>
 
                 <!-- 左侧座位画布 -->
-                <canvas class="seating-canvas-left"></canvas>
+                <canvas class="seating-canvas-left seat-canvas"></canvas>
 
                 <!-- 左侧过道 -->
-                <div class="seating-seats-aisle"></div>
+                <div class="seating-seats-aisle aisle-left">
+                    <p>过</p>
+                    <p>道</p>
+                </div>
 
                 <!-- 中间座位画布 -->
-                <canvas class="seating-canvas-center"></canvas>
+                <canvas class="seating-canvas-center seat-canvas"></canvas>
 
                 <!-- 右侧过道 -->
-                <div class="seating-seats-aisle"></div>
+                <div class="seating-seats-aisle aisle-right">
+                    <p>过</p>
+                    <p>道</p>
+                </div>
 
                 <!-- 右侧座位画布 -->
-                <canvas class="seating-canvas-right"></canvas>
+                <canvas class="seating-canvas-right seat-canvas"></canvas>
 
                 <!-- 底部座位序号 -->
                 <div class="seating-seatnumber-bottom"></div>

@@ -75,6 +75,12 @@ body {
     /* outline: 1px solid red; */
 }
 
+/* 座位画布 */
+.seat-canvas {
+    height: 585px;
+    float: left;
+}
+
 /* 左侧座位序号 */
 .seating-seatnumber-side {
     width: 50px;
@@ -86,35 +92,44 @@ body {
 
 /* 左侧座位画布 */
 .seating-canvas-left {
-    /* width: 300px;
-    height: 585px; */
-    float: left;
-    outline: 1px solid orangered;
+    outline: 2px dashed #ccc;
     margin-left: 10px;
 }
 
 /* 过道 */
 .seating-seats-aisle {
     width: 80px;
-    height: 585px;
-    outline: 1px solid darkviolet;
+    height: 200px;
+    margin-top: 192.5px;
     float: left;
+} .seating-seats-aisle p {
+    width: 60px;
+    height: 24px;
+    line-height: 24px;
+    font-size: 16px;
+    font-family: "Arial Negreta", "Arial Normal", "Arial";
+    font-weight: 700;
+    color: #666;
+    margin-top: 38px;
+}
+
+.aisle-left {
+    text-align: right;
+    padding-right: 20px;
+} .aisle-right {
+    text-align: left;
+    padding-left: 20px;
 }
 
 /* 中间座位画布 */
 .seating-canvas-center {
-    width: 480px;
-    height: 585px;
-    float: left;
-    outline: 1px solid blue;
+    /* width: 480px; */
+    /* outline: 1px solid blue; */
 }
 
 /* 右侧座位画布 */
 .seating-canvas-right {
-    width: 300px;
-    height: 585px;
-    float: left;
-    outline: 1px solid orangered;
+    outline: 2px dashed #ccc;
 }
 
 /* 底部座位序号 */
