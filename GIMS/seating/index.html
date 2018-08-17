@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>排座</title>
+	<link href="css/bootstrap.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+    <link rel="icon" href="images/favicon.ico">
+  </head>
+<body>
+
+    <!-- 模拟 1600*900 -->
+    <div class="st">
+
+        <!-- 主体界面 -->
+        <div class="seating-main">
+
+            <!-- 头部 -->
+            <div class="seating-title">
+
+                <!-- 主席台 -->
+                <div class="seating-title-content">主席台</div>
+
+                <!-- 图标示例 -->
+                <div class="seating-title-icons">
+                    <img src="images/ss0.png"><span>可选座位</span>
+                    <img src="images/ss1.png"><span>可选座位选中</span>
+                    <img src="images/ss2.png"><span>已选座位</span>
+                    <img src="images/ss3.png"><span>已选座位选中</span>
+                    <img src="images/ss4.png"><span>预留座位</span>
+                    <img src="images/ss5.png"><span>预留座位选中</span>
+                </div>
+            </div>
+
+            <!-- 座位 -->
+            <div class="seating-seats">
+
+                <!-- 左侧座位序号 -->
+                <div class="seating-seatnumber-side"></div>
+
+                <!-- 左侧座位画布 -->
+                <canvas class="seating-canvas-left"></canvas>
+
+                <!-- 左侧过道 -->
+                <div class="seating-seats-aisle"></div>
+
+                <!-- 中间座位画布 -->
+                <canvas class="seating-canvas-center"></canvas>
+
+                <!-- 右侧过道 -->
+                <div class="seating-seats-aisle"></div>
+
+                <!-- 右侧座位画布 -->
+                <canvas class="seating-canvas-right"></canvas>
+
+                <!-- 底部座位序号 -->
+                <div class="seating-seatnumber-bottom"></div>
+            </div>
+        </div>
+
+        <!-- 操作栏 -->
+        <div class="seating-menu">
+            <button>手动排座</button>
+            <button>自动排座</button>
+            <button>预留座位</button>
+            <button>取消预留</button>
+        </div>
+
+        <!-- 底部信息栏 -->
+        <div class="seating-info">
+            <div class="selected-box">当前选择：<span class="selected">未选择座位</span></div>
+        </div>
+        
+    </div>
+    
+</body>
+<script src="js/jquery-1.11.2.min.js"></script>
+<script src="js/bootstrap.js"></script>
+<script src="js/data.js"></script>
+<script src="js/app.js"></script>
+</html>

@@ -1,0 +1,174 @@
+@charset "utf-8";
+/* CSS Document */
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    /* overflow: hidden; */
+    background-color: #ccc;
+}
+
+/* 模拟1600*900的容器 */
+.st {
+    width: 1600px;
+    height: 900px;
+    margin: 30px auto 0 auto;
+    background-color: #fff;
+    /* outline: 1px solid brown; */
+}
+
+/* 主题界面 */
+.seating-main {
+    width: 90%;
+    height: 800px;
+    float: left;
+    /* outline: 1px solid black; */
+}
+
+/* 头部 */
+.seating-title {
+    width: 80%;
+    height: 125px;
+    /* outline: 1px solid black; */
+    margin: 40px auto 0 auto;
+}
+
+/* 主席台 */
+.seating-title-content {
+    width: 100%;
+    height: 55px;
+    line-height: 55px;
+    text-align: center;
+    font-size: 30px;
+    font-weight: 700;
+    color: #666;
+    background-color: #f2f2f2;
+    outline: 2px dashed #999;
+    box-shadow: 5px 5px 10px 1px #dadada;
+}
+
+/* 图标示例 */
+.seating-title-icons {
+    width: 100%;
+    height: 70px;
+    line-height: 80px;
+    /* outline: 2px dashed #a1a1a1; */
+    text-align: center;
+} .seating-title-icons img {
+    width: 28px;
+    height: 28px;
+    margin-top: -8px;
+}.seating-title-icons span {
+    font-family: "Arial Negreta", "Arial Normal", "Arial";
+    font-size: 16px;
+    font-weight: 700;
+    color: #666;
+    margin: 0 40px 0 10px;
+}
+
+/* 座位 */
+.seating-seats {
+    width: 100%;
+    height: 635px;
+    /* outline: 1px solid red; */
+}
+
+/* 左侧座位序号 */
+.seating-seatnumber-side {
+    width: 50px;
+    height: 585px;
+    float: left;
+    outline: 1px solid orange;
+    margin-left: 40px;
+}
+
+/* 左侧座位画布 */
+.seating-canvas-left {
+    /* width: 300px;
+    height: 585px; */
+    float: left;
+    outline: 1px solid orangered;
+    margin-left: 10px;
+}
+
+/* 过道 */
+.seating-seats-aisle {
+    width: 80px;
+    height: 585px;
+    outline: 1px solid darkviolet;
+    float: left;
+}
+
+/* 中间座位画布 */
+.seating-canvas-center {
+    width: 480px;
+    height: 585px;
+    float: left;
+    outline: 1px solid blue;
+}
+
+/* 右侧座位画布 */
+.seating-canvas-right {
+    width: 300px;
+    height: 585px;
+    float: left;
+    outline: 1px solid orangered;
+}
+
+/* 底部座位序号 */
+.seating-seatnumber-bottom {
+    width: 100%;
+    height: 50px;
+    float: left;
+    outline: 1px solid greenyellow;
+}
+
+
+
+/* 操作列 */
+.seating-menu {
+    width: 10%;
+    height: 800px;
+    float: left;
+    outline: 1px dashed #ccc;
+    text-align: center;
+} .seating-menu button {
+    display: inline-block;
+    width: 120px;
+    height: 50px;
+    margin-top: 10px;
+}
+
+
+.seating-info {
+    width: 100%;
+    height: 100px;
+    clear: left;
+}
+
+
+
+
+
+
+
+
+#canvas {
+    height: 90%;
+    border: 1px dashed #ccc;
+}
+
+.selected-box {
+    width: 50%;
+    height: 100%;
+    line-height: 100px;
+    border: 1px dashed #ccc;
+    /* padding: 0 20px; */
+    /* cursor: pointer; */
+}
+
+.selected {
+    margin-left: 10px;
+}
