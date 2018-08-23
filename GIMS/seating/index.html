@@ -2,7 +2,8 @@
 <html lang="zh-CN">
 <head>
     <meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
     <title>排座</title>
 	<link href="css/bootstrap.css" rel="stylesheet">
@@ -15,76 +16,235 @@
   </head>
 <body>
 
-    <!-- 模拟 1600*900 -->
-    <div class="st">
+    <!-- 隐藏滚动条 -->
+    <div class="hide-scroll">
 
-        <!-- 主体界面 -->
-        <div class="seating-main">
+        <!-- 模拟 1600*900 -->
+        <div class="st">
 
-            <!-- 头部 -->
-            <div class="seating-title">
-
-                <!-- 主席台 -->
-                <div class="seating-title-content">主席台</div>
-
-                <!-- 图标示例 -->
-                <div class="seating-title-icons">
-                    <img src="images/ss0.png"><span>可选座位</span>
-                    <img src="images/ss1.png"><span>可选座位选中</span>
-                    <img src="images/ss2.png"><span>已选座位</span>
-                    <img src="images/ss3.png"><span>已选座位选中</span>
-                    <img src="images/ss4.png"><span>预留座位</span>
-                    <img src="images/ss5.png"><span>预留座位选中</span>
-                </div>
-            </div>
-
-            <!-- 座位 -->
-            <div class="seating-seats">
-
-                <!-- 左侧座位序号 -->
-                <div class="seating-seatnumber-side"></div>
-
-                <!-- 左侧座位画布 -->
-                <canvas class="seating-canvas-left seat-canvas"></canvas>
-
-                <!-- 左侧过道 -->
-                <div class="seating-seats-aisle aisle-left">
-                    <p>过</p>
-                    <p>道</p>
-                </div>
-
-                <!-- 中间座位画布 -->
-                <canvas class="seating-canvas-center seat-canvas"></canvas>
-
-                <!-- 右侧过道 -->
-                <div class="seating-seats-aisle aisle-right">
-                    <p>过</p>
-                    <p>道</p>
-                </div>
-
-                <!-- 右侧座位画布 -->
-                <canvas class="seating-canvas-right seat-canvas"></canvas>
-
-                <!-- 底部座位序号 -->
-                <div class="seating-seatnumber-bottom"></div>
-            </div>
-        </div>
-
-        <!-- 操作栏 -->
-        <div class="seating-menu">
-            <button>手动排座</button>
-            <button>自动排座</button>
-            <button>预留座位</button>
-            <button>取消预留</button>
-        </div>
-
-        <!-- 底部信息栏 -->
-        <div class="seating-info">
-            <div class="selected-box">当前选择：<span class="selected">未选择座位</span></div>
-        </div>
-        
-    </div>
+            <!-- 主体界面 -->
+            <div class="seating-main">
     
+                <!-- 头部 -->
+                <div class="seating-title">
+    
+                    <!-- 主席台 -->
+                    <div class="seating-title-content">主席台</div>
+    
+                    <!-- 图标示例 -->
+                    <div class="seating-title-icons">
+                        <img src="images/ss0.png"><span>可选座位</span>
+                        <img src="images/ss2.png"><span>已选座位</span>
+                        <img src="images/ss4.png"><span>预留座位</span>
+                        <img src="images/ss1.png"><span>可选座位选中</span>
+                        <img src="images/ss3.png"><span>已选座位选中</span>
+                        <img src="images/ss5.png"><span>预留座位选中</span>
+                    </div>
+                </div>
+    
+                <!-- 座位 -->
+                <div class="seating-seats">
+    
+                    <!-- 左侧座位序号 -->
+                    <canvas class="seating-seatnumber-side"></canvas>
+    
+                    <!-- 左侧座位画布 -->
+                    <canvas class="seating-canvas-left seat-canvas"></canvas>
+    
+                    <!-- 左侧过道 -->
+                    <div class="seating-seats-aisle aisle-left">
+                        <p>过</p>
+                        <p>道</p>
+                    </div>
+    
+                    <!-- 中间座位画布 -->
+                    <canvas class="seating-canvas-center seat-canvas"></canvas>
+    
+                    <!-- 右侧过道 -->
+                    <div class="seating-seats-aisle aisle-right">
+                        <p>过</p>
+                        <p>道</p>
+                    </div>
+    
+                    <!-- 右侧座位画布 -->
+                    <canvas class="seating-canvas-right seat-canvas"></canvas>
+    
+                    <!-- 底部座位序号 -->
+                    <canvas class="seating-seatnumber-bottom"></canvas>
+                </div>
+            </div>
+    
+            <!-- 操作栏 -->
+            <div class="seating-menu">
+    
+                <!-- 操作栏头部 -->
+                <div class="seating-menu-title">
+                    <img src="images/ss.png"><span>查看操作说明</span>
+                </div>
+
+                <!-- 发布按钮 -->
+                <div class="seating-menu-publish">
+                    <button data-toggle="modal" data-target="#publishTip">发　　布</button>
+                </div>
+    
+                <!-- 操作按钮 -->
+                <div class="seating-menu-content">
+                    <button data-toggle="modal" data-target="#manualSortTip">手动排座</button>
+                    <button>自动排座</button>
+                    <button data-toggle="modal" data-target="#reserveTip">预留座位</button>
+                    <button data-toggle="modal" data-target="#cancelReserveTip">取消预留</button>
+                    <button data-toggle="modal" data-target="#resetTip">重　　置</button>
+                </div>
+            </div>
+    
+            <!-- 底部信息栏 -->
+            <div class="seating-info">
+                <div class="selected-box">当前选择：<span class="selected">未选择座位</span></div>
+            </div>
+            
+        </div>
+    </div>
+
+    <!-- 模态框 -->
+
+    <!-- 发布提示 -->
+    <div class="modal fade" id="publishTip" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-tip">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel">
+                        提示信息
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <span>确定发布吗？</span>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-func="publishTip" data-dismiss="modal">确认</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 手动排序提示 -->
+    <div class="modal fade" id="manualSortTip" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-tip">
+            <div class="modal-content">
+                <div class="modal-header bg-danger text-danger">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel">
+                        提示信息
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <span>您未选择座位！请选择后重试。</span>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary hide" data-func="manualSortTip" data-dismiss="modal"  data-toggle="modal" data-target="#manualSort">确认</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 手动排序 -->
+    <div class="modal fade" id="manualSort" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-manual">
+            <div class="modal-content modal-content-manual">
+
+                <!-- 关闭按钮 -->
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+
+                <!-- 面板 -->
+                <div class="manual-sort-panel">
+                    
+                    <!-- 头部 -->
+                    <div class="manual-sort-header">
+                        <span>手动排序</span>
+
+                    </div>
+                
+                    <!-- 左侧 -->
+                    <div class="manual-sort-left"></div>
+
+                    <!-- 右侧 -->
+                    <div class="manual-sort-right"></div>
+
+                </div>
+
+                <!-- 底部 -->
+                <div class="manual-sort-bottom">
+                    <button class="btn" data-dismiss="modal">提交</button>
+                    <button class="btn" data-dismiss="modal">取消</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 预留座位提示 -->
+    <div class="modal fade" id="reserveTip" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-tip">
+            <div class="modal-content">
+                <div class="modal-header bg-danger text-danger">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel">
+                        提示信息
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <span>您未选择座位！请选择后重试。</span>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary hide" data-func="reserveTip" data-dismiss="modal">确认</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 取消预留提示 -->
+    <div class="modal fade" id="cancelReserveTip" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-tip">
+            <div class="modal-content">
+                <div class="modal-header bg-danger text-danger">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel">
+                        提示信息
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <span>您未选择预留的座位！请选择后重试。</span>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary hide" data-func="cancelReserveTip" data-dismiss="modal">确认</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 重置提示 -->
+    <div class="modal fade" id="resetTip" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-tip">
+            <div class="modal-content">
+                <div class="modal-header bg-danger text-danger">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel">
+                        提示信息
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <span>您是否要重置所有座位？</span>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-func="resetTip" data-dismiss="modal">确认</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 <script src="js/jquery-1.11.2.min.js"></script>
 <script src="js/bootstrap.js"></script>

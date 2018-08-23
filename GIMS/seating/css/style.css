@@ -5,16 +5,40 @@
     padding: 0;
 }
 
-body {
-    /* overflow: hidden; */
-    background-color: #ccc;
+html {
+    overflow-x: hidden;
 }
+body {
+    width: 1600px;
+    height: 100%;
+    background-color: #ccc;
+    overflow-x: hidden;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+@media screen and (max-width: 1599px) {
+    html { overflow: visible; }
+    body { overflow-x: scroll; }
+}
+
+/* 隐藏滚动条 */
+.hide-scroll {
+    width: calc(100% + 17px);
+    height: 100%;
+    overflow: auto;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
 
 /* 模拟1600*900的容器 */
 .st {
     width: 1600px;
     height: 900px;
-    margin: 30px auto 0 auto;
+    /* margin: 0px auto 0 auto; */
     background-color: #fff;
     /* outline: 1px solid brown; */
 }
@@ -86,7 +110,7 @@ body {
     width: 50px;
     height: 585px;
     float: left;
-    outline: 1px solid orange;
+    /* outline: 1px solid orange; */
     margin-left: 40px;
 }
 
@@ -137,53 +161,303 @@ body {
     width: 100%;
     height: 50px;
     float: left;
-    outline: 1px solid greenyellow;
+    /* outline: 1px solid greenyellow; */
 }
-
-
 
 /* 操作列 */
 .seating-menu {
     width: 10%;
     height: 800px;
     float: left;
-    outline: 1px dashed #ccc;
+    /* outline: 1px dashed #ccc; */
     text-align: center;
-} .seating-menu button {
-    display: inline-block;
-    width: 120px;
-    height: 50px;
-    margin-top: 10px;
 }
 
+/* 操作列头部 */
+.seating-menu-title {
+    width: 100%;
+    height: 24px;
+    line-height: 24px;
+    margin-top: 70px;
+    text-align: left;
+} .seating-menu-title img {
+    margin: 0 5px 0 15px;
+} .seating-menu-title span {
+    font-size: 16px;
+} 
 
+/* 发布框 */
+.seating-menu-publish {
+    width: 100%;
+    height: 40px;
+    margin-top: 30px;
+} .seating-menu-publish button {
+    color: #fff;
+    width: 130px;
+    height: 40px;
+    border: none;
+    outline: none;
+    border-radius: 5px;
+    background-color: #f00;
+    line-height: 38px;
+} .seating-menu-publish button:hover {
+    background-color: #e00;
+} .seating-menu-publish button:active {
+    padding-top: 2px;
+}
+
+/* 操作按钮 */
+.seating-menu-content {
+    width: 100%;
+    height: 70%;
+    margin-top: 30px;
+    outline: 1px dashed #ccc;
+    padding-top: 10px;
+} .seating-menu-content button {
+    margin-top: 20px;
+    color: #fff;
+    width: 130px;
+    height: 40px;
+    border: none;
+    outline: none;
+    border-radius: 5px;
+} .seating-menu-content button:active {
+    padding-top: 2px;
+}
+
+.seating-menu-content button:nth-child(1) {
+     background-color: #09f;
+} .seating-menu-content button:nth-child(2) {
+     background-color: #f93;
+} .seating-menu-content button:nth-child(3) {
+     background-color: #0c6;
+} .seating-menu-content button:nth-child(4) {
+     background-color: #f66;
+} .seating-menu-content button:nth-child(5) {
+     background-color: #aaa;
+}
+
+.seating-menu-content button:nth-child(1):hover {
+     background-color: #08e;
+} .seating-menu-content button:nth-child(2):hover {
+     background-color: #e82;
+} .seating-menu-content button:nth-child(3):hover {
+     background-color: #0b5;
+} .seating-menu-content button:nth-child(4):hover {
+     background-color: #e55;
+} .seating-menu-content button:nth-child(5):hover {
+     background-color: #999;
+}
+
+/* 底部信息栏 */
 .seating-info {
     width: 100%;
     height: 100px;
     clear: left;
+    overflow: hidden;
 }
 
-
-
-
-
-
-
-
-#canvas {
-    height: 90%;
-    border: 1px dashed #ccc;
-}
-
+/* 已选座位信息容器 */
 .selected-box {
-    width: 50%;
-    height: 100%;
-    line-height: 100px;
-    border: 1px dashed #ccc;
-    /* padding: 0 20px; */
-    /* cursor: pointer; */
+    width: 1500px;
+    height: 80%;
+    line-height: 40px;
+    outline: 1px dashed #ccc;
+    margin: 20px 0 0 100px;
+    padding: 0 20px;
+    overflow-y: auto;
 }
 
+/* 已选信息 */
 .selected {
     margin-left: 10px;
+}
+
+/* 手动排序模态框 */
+.modal-dialog-manual {
+    width: 1500px;
+    height: 800px;
+}
+
+/* 手动排序模态框内容部分 */
+.modal-content-manual {
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    border: none;
+    overflow: hidden;
+    background-image: url(../images//index_bj.jpg);
+    background-repeat: repeat;
+} .modal-content-manual .close {
+    margin: 8px 10px 0 0;
+}
+
+/* 手动排序面板 */
+.manual-sort-panel {
+    width: 90%;
+    height: 680px;
+    margin: 30px 5%;
+    /* outline: 1px dashed black; */
+    background-color: #fff;
+    border-radius: 10px;
+}
+
+/* 手动排序头部 */
+.manual-sort-header {
+    width: 100%;
+    height: 50px;
+    /* outline: 1px dashed darkblue; */
+    text-align: center;
+    line-height: 20px;
+    padding: 15px;
+} .manual-sort-header span {
+    font-size: 22px;
+    font-weight: 600;
+}
+
+/* 手动排序左侧 */
+.manual-sort-left {
+    width: 650px;
+    height: 590px;
+    border: 1px solid #ccc;
+    margin: 10px 8px 0 15px;
+    float: left;
+    overflow-y: auto;
+}
+
+/* 已选择的作为按钮 */
+.ms-selected {
+    width: 180px;
+    height: 80px;
+    padding: 5px;
+    line-height: 35px;
+    margin: 15px;
+    text-align: center;
+    background-color: #08e;
+    border-radius: 10px;
+    cursor: pointer;
+    float: left;
+} .ms-selected:hover {
+    background-color: #07d;
+} .ms-selected span {
+    color: #fff;
+    font-size: 16px;
+    font-weight: 600;
+} .ms-selected span:nth-child(1) {
+    color: #fff;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+/* 手动排序右侧 */
+.manual-sort-right {
+    width: 650px;
+    height: 590px;
+    border: 1px solid #ccc;
+    margin: 10px 0 0 8px;
+    float: left;
+    overflow-y: auto;
+}
+
+/* 员工列表 */
+.ms-worker-list {
+    width: calc(100% - 4px);
+    margin-left: 2px;
+    height: 120px;
+    padding: 10px 0 10px 30px;
+    background-color: #f5f5f5;
+    margin-top: 5px;
+    cursor: pointer;
+} .ms-worker-list::after {
+    clear: left;
+    display: none;
+} .ms-worker-list div {
+    float: left;
+}
+
+/* 员工列表头像区 */
+.mswl-start {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    overflow: hidden;
+} .mswl-start img {
+    width: 100%;
+}
+
+/* 员工列表中部 */
+.mswl-center {
+    width: 300px;
+    height: 100px;
+    line-height: 20px;
+    text-align: center;
+} .mswl-center h3 {
+    margin-top: 5px;
+}
+
+/* 员工列表座位号 */
+.mswl-end {
+    width: 150px;
+    height: 100px;
+    line-height: 100px;
+    text-align: center;
+} .mswl-end span {
+    font-size: 20px;
+    font-weight: 600;
+}
+
+/* 选中员工列表 */
+.right-selected {
+    outline: 2px dashed black;
+}
+
+/* 选中已选列表 */
+.left-selected {
+    outline: 2px dashed black;
+}
+
+/* 手动排序按钮栏 */
+.manual-sort-bottom {
+    width: 100%;
+    height: 60px;
+    text-align: center;
+    background-color: #c7c7c7;
+    clear: left;
+} .manual-sort-bottom button {
+    width: 100px;
+    height: 40px;
+    margin-top: 10px;
+    background-color: #337ab7;
+    border-color: #337ab7;
+    color: #fff;
+} .manual-sort-bottom button:hover {
+    color: #fff;
+    background-color: #286090;
+} .manual-sort-bottom button:focus {
+    color: #fff;
+}
+
+/* 提示信息模态框 */
+.modal-dialog-tip {
+    margin-top: 200px;
+} .modal-dialog-tip .modal-header {
+    border: none;
+    background-color: #f2f2f2;
+    color: #999;
+    font-weight: 700;
+} .modal-dialog-tip .modal-body {
+    font-size: 18px;
+    height: 50px;
+    line-height: 40px;
+} .modal-dialog-tip .modal-footer {
+    border: none;
+    text-align: center;
+}
+
+.bg-danger {
+    background-color: #f2dede !important;
+}
+
+.text-danger {
+    color: #a94442 !important;
 }
