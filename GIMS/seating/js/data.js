@@ -166,43 +166,38 @@ seatData.s2.p3 = {
 // 预留的座位           4
 // 选中预留的座位       5
 // 模拟数据，随机状态码进行初始化
-for(let i = 0; i < seatData.t1.row; ++i) {
-    seatData.t1.seats[i] = [];
-    seatData.t3.seats[i] = [];
-    for(let j = 0; j < seatData.t1.col; ++j) {
-        seatData.t1.seats[i].push({
-            row: i+1,
-            col: j+1,
-            x: seatData.t1.firstPadding.x+(seatData.seatSize.width+seatData.t1.seatMargin.x)*i,
-            y: seatData.t1.firstPadding.y+(seatData.seatSize.height+seatData.t1.seatMargin.y)*j,
-            state: getEvenNum(Math.round(Math.random()*5))
-        });
-        seatData.t1.seats[i][j].owner = getOwner(seatData.t1.seats[i][j].state);
 
-        seatData.t3.seats[i].push({
-            row: i+1,
-            col: j+1,
-            x: seatData.t3.firstPadding.x+(seatData.seatSize.width+seatData.t3.seatMargin.x)*i,
-            y: seatData.t3.firstPadding.y+(seatData.seatSize.height+seatData.t3.seatMargin.y)*j,
-            state: getEvenNum(Math.round(Math.random()*5))
-        });
-        seatData.t3.seats[i][j].owner = getOwner(seatData.t3.seats[i][j].state);
-    }
-}
+// for(let i = 0; i < seatData.t1.row; ++i) {
+//     seatData.t1.seats[i] = [];
+//     seatData.t3.seats[i] = [];
+//     for(let j = 0; j < seatData.t1.col; ++j) {
+//         seatData.t1.seats[i].push({
+//             row: i+1,
+//             col: j+1,
+//             state: getEvenNum(Math.round(Math.random()*5))
+//         });
+//         seatData.t1.seats[i][j].owner = getOwner(seatData.t1.seats[i][j].state);
 
-for(let i = 0; i < seatData.t2.row; ++i) {
-    seatData.t2.seats[i] = [];
-    for(let j = 0; j < seatData.t2.col; ++j) {
-        seatData.t2.seats[i].push({
-            row: i+1,
-            col: j+1,
-            x: seatData.t2.firstPadding.x+(seatData.seatSize.width+seatData.t2.seatMargin.x)*i,
-            y: seatData.t2.firstPadding.y+(seatData.seatSize.height+seatData.t2.seatMargin.y)*j,
-            state: getEvenNum(Math.round(Math.random()*5))
-        });
-        seatData.t2.seats[i][j].owner = getOwner(seatData.t2.seats[i][j].state);
-    }
-}
+//         seatData.t3.seats[i].push({
+//             row: i+1,
+//             col: j+1,
+//             state: getEvenNum(Math.round(Math.random()*5))
+//         });
+//         seatData.t3.seats[i][j].owner = getOwner(seatData.t3.seats[i][j].state);
+//     }
+// }
+
+// for(let i = 0; i < seatData.t2.row; ++i) {
+//     seatData.t2.seats[i] = [];
+//     for(let j = 0; j < seatData.t2.col; ++j) {
+//         seatData.t2.seats[i].push({
+//             row: i+1,
+//             col: j+1,
+//             state: getEvenNum(Math.round(Math.random()*5))
+//         });
+//         seatData.t2.seats[i][j].owner = getOwner(seatData.t2.seats[i][j].state);
+//     }
+// }
 
 // 保存座位信息的数据不会保存座位是非被选中的状态
 // 模拟的数据都用未选中的座位

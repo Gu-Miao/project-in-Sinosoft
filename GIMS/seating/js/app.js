@@ -1,35 +1,66 @@
 $(function() {
 
-
-    // 初始化座位画布
-    initSeatCanvas("t1");
-    initSeatCanvas("t2");
-    initSeatCanvas("t3");
-
-    // 初始化座位序号画布
-    initSeatNumberSideCanvas();
-    initSeatNumberBottomCanvas();
-
-    var seatCanvas = $(".seat-canvas");
-
-    // 给画布绑定事件方法
-    $(seatCanvas).click(clickCanvas);
-    $(seatCanvas).mousemove(changePointer);
-    $(seatCanvas).mouseout(function() {
-        $("body").css("cursor", "default");
+    // 同步请求
+    $.ajaxSetup({ 
+        async : false 
     });
 
-    // 给按钮绑定事件方法
-    $('.seating-menu-content button:eq(0)').click(manualSortTip);
-    $('.seating-menu-content button:eq(2)').click(reserveTip);
-    $('.seating-menu-content button:eq(3)').click(cancelReserveTip);
-    $('.seating-menu-content button:eq(4)').click(resetTip);
-    $('.modal-dialog-tip [data-func="publishTip"]').click(publish);
-    $('.modal-dialog-tip [data-func="manualSortTip"]').click(initManualSortPanel);
-    $('.modal-dialog-tip [data-func="reserveTip"]').click(reserve);
-    $('.modal-dialog-tip [data-func="cancelReserveTip"]').click(cancelReserve);
-    $('.modal-dialog-tip [data-func="resetTip"]').click(reset);
-    $('.manual-sort-bottom button:eq(0)').click(manualSortSubmit);
+    // 获取数据
+    $.getJSON("../data.json", function(data) {
+        // seatData = data;
+        for(let i = 0; i < data.length; ++i) {
+            for(let j = 0; j < data[i].length; ++j) {
+                loadData(data[i][j]);
+            }
+        }
+
+        // 初始化座位画布
+        initSeatCanvas("t1");
+        initSeatCanvas("t2");
+        initSeatCanvas("t3");
+
+        // 初始化座位序号画布
+        initSeatNumberSideCanvas();
+        initSeatNumberBottomCanvas();
+
+        var seatCanvas = $(".seat-canvas");
+
+        // 给画布绑定事件方法
+        $(seatCanvas).click(clickCanvas);
+        $(seatCanvas).mousemove(changePointer);
+        $(seatCanvas).mouseout(function() {
+            $("body").css("cursor", "default");
+        });
+
+        // 给按钮绑定事件方法
+        $('.seating-menu-content button:eq(0)').click(manualSortTip);
+        $('.seating-menu-content button:eq(2)').click(reserveTip);
+        $('.seating-menu-content button:eq(3)').click(cancelReserveTip);
+        $('.seating-menu-content button:eq(4)').click(resetTip);
+        $('.modal-dialog-tip [data-func="publishTip"]').click(publish);
+        $('.modal-dialog-tip [data-func="manualSortTip"]').click(initManualSortPanel);
+        $('.modal-dialog-tip [data-func="reserveTip"]').click(reserve);
+        $('.modal-dialog-tip [data-func="cancelReserveTip"]').click(cancelReserve);
+        $('.modal-dialog-tip [data-func="resetTip"]').click(reset);
+        $('.manual-sort-bottom button:eq(0)').click(manualSortSubmit);
+    });
+
+    /*
+    ** 加载数据
+    ** @seat    { Object }  座位数据
+    */
+    function loadData(seat) {
+        var row = convertColToCanvas(seat.col).row;
+        var col = seat.row-1;
+        var target = convertColToCanvas(seat.col).target;
+
+        if(!seatData[target].seats[row]) { seatData[target].seats[row] = []; }
+
+        seatData[target].seats[row][col] = {
+            state: seat.state,
+            owner: seat.owner
+        };
+    }
 
     /*
     ** 渲染画布
