@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    	<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>视频播放</title>
+       	<style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        html, body {
+            width: 100%;
+            height: 100%;
+            background-image: url("./index_bj.jpg");
+            overflow-y: hidden;
+            min-height: 500px;
+        }
+
+        .video-wrap{
+            width: 90%;
+            height: 70%;
+            margin: 1% auto 0 auto;
+            background-color: #fff;
+            overflow: hidden;
+            border-radius: 10px;
+            padding-top: 2%;
+            padding-bottom: 3%;
+        }
+
+        .video-box{
+            width: 85%;
+            height: 100%;
+            margin: 0 auto;
+        }
+
+        .video-title {
+            width: 100%;
+            height: 10%;
+            text-align: center;
+        } .video-title span {
+            font-size: 1.5em;
+            font-weight: 500;
+        }
+
+        .video-box video{
+            width: 100%;
+            height: 90%;
+            background-color: #000;
+        }
+
+        .video-bottom {
+            width: 100%;
+            height: 8%;
+            text-align: center;
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            background-color: #c7c7c7;
+            line-height: 1.42857143;
+        } .video-bottom button {
+            display: inline-block;
+            vertical-align: middle;
+            width: 100px;
+            height: 30px;
+            margin-top: 15px;
+            background-color: #337ab7;
+            border-color: #337ab7;
+            color: #fff;
+            font-size: 14px;
+            font-weight: normal;
+            cursor: pointer;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            border: 1px solid transparent;
+            border-radius: 4px;
+            outline: none;
+        } .video-bottom button:hover {
+            background-color: #07b;
+        } .video-bottom button:active {
+            padding-top: 2px;
+        }
+
+        @media screen and (max-height: 700px) {
+            .video-bottom button {
+                margin-top: 12px;
+            }
+        } @media screen and (max-height: 600px) {
+            .video-bottom button {
+                margin-top: 10px;
+            }
+        } @media screen and (max-height: 560px) {
+            .video-bottom button {
+                margin-top: 9px;
+            }
+        } @media screen and (max-height: 530px) {
+            .video-bottom button {
+                margin-top: 8px;
+            }
+        } @media screen and (max-height: 500px) {
+            html, body {
+                overflow-y: auto;
+            }
+
+            .video-bottom { 
+                height: 40px;
+            } .video-bottom button {
+                margin-top: 8px;
+            }
+        }
+    </style>
+    </head>
+    <body>
+    	<div class="video-wrap">
+    		<div class="video-box">
+                <div class="video-title">
+                    <span>Glassy Sky</span>
+                </div>
+    			<video controlslist="nodownload" id="video" src="glassySky.mp4" controls="controls" autoplay="autoplay"  height="100%" width="100%">您的浏览器不支持。</video>
+    		</div>
+        </div>
+        <div class="video-bottom">
+            <button onclick="quitPlayVideo();">退出学习</button>
+        </div>
+
+    	<div id="confirmDiv" style="display:none;">
+    		<div id="aa">
+    			页面将在<span id="count" style="color:#F00;font-weight: bold;">10</span>秒后关闭，请点击【继续播放】。
+    		</div>
+    	</div>
+    </body>
+</html>

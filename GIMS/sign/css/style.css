@@ -1,0 +1,64 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+}
+
+li {
+    list-style: none;
+}
+
+.wrap {
+    width: 100%;
+    height: 100%;
+    background-image: url("../res/bg.jpg");
+    background-size: cover;
+    overflow: hidden;
+    position: absolute;
+    z-index: -999;
+}
+
+.signed {
+    width: 30%;
+    height: 80%;
+    margin: 5% 0 0 15%;
+    position: absolute;
+}
+
+.signed-title {
+    width: 80%;
+    height: 10%;
+    margin-left: 15%;
+    line-height: 2.4;
+} .signed-title span {
+    color: #fff;
+    font-size: 36px;
+    font-weight: 500;
+}
+
+.signed-list {
+    width: 80%;
+    margin-left: 15%;
+    margin-top: 5%;
+} .signed-list li {
+    font-size: 28px;
+    font-weight: 500;
+    color: #fff;
+    line-height: 1.8;
+}
+
+.signed-wrap {
+    width: 100%;
+    height: 100%;
+    opacity: 0.3;
+    position: absolute;
+    left: 0;
+    top: 0;
+    background-color: #333;
+    z-index: -1;
+    border-radius: 10px;
+}

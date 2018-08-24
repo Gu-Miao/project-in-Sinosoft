@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    	<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>视频播放</title>
+       	<style>
+        .video-wrap{
+            background-color: #ddd;
+            width: 100%;
+            heght:100%;
+            text-align: center;
+        }
+        .video-box{
+            width: 90%;
+            heith:100%;
+            margin: 0px auto;
+        }
+        /*通过样式设置video宽度高度，不可以直接在<video>标签中设置非像素宽高，否则IE8不会显示视频*/
+        .video-box video{
+            width:100%;
+            height:630px;
+        }
+    </style>
+    </head>
+    <body>
+    	<div class="video-wrap">
+    		<div class="video-box">
+    			<video controlslist="nodownload" id="video" src="glassySky.mp4" controls="controls" autoplay="autoplay"  height="100%" width="100%">您的浏览器不支持。</video>
+    		</div>
+    	</div>
+    	<input type="button" value="退出学习" onclick="quitPlayVideo();">
+    	<div id="confirmDiv" style="display:none;">
+    		<div id="aa">
+    			页面将在<span id="count" style="color:#F00;font-weight: bold;">10</span>秒后关闭，请点击【继续播放】。
+    		</div>
+    	</div>
+    </body>
+</html>
