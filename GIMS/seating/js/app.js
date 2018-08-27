@@ -6,7 +6,7 @@ $(function() {
     });
 
     // 获取数据
-    $.getJSON("https://gu-miao.github.io/project-in-Sinosoft/data.json", function(data) {
+    $.getJSON("https://gu-miao.github.io/project-in-Sinosoft/../data.json", function(data) {
         // seatData = data;
         for(let i = 0; i < data.length; ++i) {
             for(let j = 0; j < data[i].length; ++j) {
