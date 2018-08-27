@@ -1,44 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Document</title>
     <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" href="res/favicon.ico">
 </head>
 <body>
     <div class="wrap">
 
         <!-- 已签到盒子 -->
         <div class="signed">
+
+            <!-- 已签到头部 -->
             <div class="signed-title">
                 <span>签到人员列表</span>
             </div>
+
+            <!-- 已签到列表 -->
             <div class="signed-list">
-                <ul>
-                    <li>asdfasdfasdf</li>
-                    <li>asdfasdfasdf</li>
-                    <li>asdfasdfasdf</li>
-                    <li>asdfasdfasdf</li>
-                    <li>asdfasdfasdf</li>
-                    <li>asdfasdfasdf</li>
-                    <li>asdfasdfasdf</li>
-                    <li>asdfasdfasdf</li>
-                    <li>asdfasdfasdf</li>
-                    <li>asdfasdfasdf</li>
-                </ul>
+                <ul></ul>
             </div>
 
-            <!-- 透明背景 -->
+            <!-- 半透明背景 -->
             <div class="signed-wrap"></div>
         </div>
 
-        <!-- 签到信息 -->
+        <!-- 签到成功信息 -->
         <div class="sign-info">
-            <span class="">
-                
-            </span>
+            <span class="">恭喜您，签到成功！</span>
+            <span>总签到人数<strong>0</strong>人</span>
+            <span>当前签到编号<strong>暂无</strong></span>
         </div>
     </div>
 </body>
+<script src="js/jquery-1.11.2.min.js"></script>
+<script src="js/polyfill.min.js"></script>
+<script src="js/fetch.js"></script>
 <script src="js/app.js"></script>
 </html>

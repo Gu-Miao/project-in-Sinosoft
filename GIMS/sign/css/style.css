@@ -6,12 +6,15 @@
 html, body {
     width: 100%;
     height: 100%;
+    font-family: "微软雅黑";
 }
 
 li {
     list-style: none;
 }
 
+
+/* 背景 */
 .wrap {
     width: 100%;
     height: 100%;
@@ -19,9 +22,10 @@ li {
     background-size: cover;
     overflow: hidden;
     position: absolute;
-    z-index: -999;
+    z-index: 1;
 }
 
+/* 已签到信息 */
 .signed {
     width: 30%;
     height: 80%;
@@ -29,6 +33,7 @@ li {
     position: absolute;
 }
 
+/* 已签到头部 */
 .signed-title {
     width: 80%;
     height: 10%;
@@ -36,14 +41,20 @@ li {
     line-height: 2.4;
 } .signed-title span {
     color: #fff;
-    font-size: 36px;
+    font-size: 40px;
     font-weight: 500;
 }
 
+/* 已签到列表 */
 .signed-list {
     width: 80%;
+    height: 80%;
     margin-left: 15%;
     margin-top: 5%;
+} .signed-list ul {
+    /* outline: 1px solid #ccc; */
+    height: 490px;
+    overflow: hidden;
 } .signed-list li {
     font-size: 28px;
     font-weight: 500;
@@ -51,6 +62,7 @@ li {
     line-height: 1.8;
 }
 
+/* 半透明背景 */
 .signed-wrap {
     width: 100%;
     height: 100%;
@@ -61,4 +73,32 @@ li {
     background-color: #333;
     z-index: -1;
     border-radius: 10px;
+}
+
+/* 签到成功信息 */
+.sign-info {
+    width: 40%;
+    height: 40%;
+    /* outline: 1px solid black; */
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    text-align: center;
+    line-height: 1.5;
+} .sign-info span {
+    display: block;
+    font-weight: 500;
+    font-size: 36px;
+    color: #0b4573;
+} .sign-info span:nth-child(1) {
+    font-size: 56px;
+    font-weight: 700;
+    text-shadow: 0px 0px 5px #fff;
+    -webkit-text-stroke-color: #fff;
+    -webkit-text-stroke-width: 0.5px;
+} .sign-info span:nth-child(2) {
+    margin-top: 10%;
+} .sign-info strong {
+    font-weight: 700;
+    font-size: 56px;
 }

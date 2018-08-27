@@ -1,49 +1,91 @@
 $(function() {
 
-    // 同步请求
-    $.ajaxSetup({ 
-        async : false 
-    });
+    fetch("../data.json", { method: "get" }).then(function(res) {
+        res.text().then(function(data) {
+            seatData = JSON.parse(data);
 
-    // 获取数据
-    $.getJSON("https://gu-miao.github.io/project-in-Sinosoft/../data.json", function(data) {
-        // seatData = data;
-        for(let i = 0; i < data.length; ++i) {
-            for(let j = 0; j < data[i].length; ++j) {
-                loadData(data[i][j]);
+            for(let i = 0; i < data.length; ++i) {
+                for(let j = 0; j < data[i].length; ++j) {
+                    loadData(data[i][j]);
+                }
             }
-        }
-
-        // 初始化座位画布
-        initSeatCanvas("t1");
-        initSeatCanvas("t2");
-        initSeatCanvas("t3");
-
-        // 初始化座位序号画布
-        initSeatNumberSideCanvas();
-        initSeatNumberBottomCanvas();
-
-        var seatCanvas = $(".seat-canvas");
-
-        // 给画布绑定事件方法
-        $(seatCanvas).click(clickCanvas);
-        $(seatCanvas).mousemove(changePointer);
-        $(seatCanvas).mouseout(function() {
-            $("body").css("cursor", "default");
+    
+            // 初始化座位画布
+            initSeatCanvas("t1");
+            initSeatCanvas("t2");
+            initSeatCanvas("t3");
+    
+            // 初始化座位序号画布
+            initSeatNumberSideCanvas();
+            initSeatNumberBottomCanvas();
+    
+            var seatCanvas = $(".seat-canvas");
+    
+            // 给画布绑定事件方法
+            $(seatCanvas).click(clickCanvas);
+            $(seatCanvas).mousemove(changePointer);
+            $(seatCanvas).mouseout(function() {
+                $("body").css("cursor", "default");
+            });
+    
+            // 给按钮绑定事件方法
+            $('.seating-menu-content button:eq(0)').click(manualSortTip);
+            $('.seating-menu-content button:eq(2)').click(reserveTip);
+            $('.seating-menu-content button:eq(3)').click(cancelReserveTip);
+            $('.seating-menu-content button:eq(4)').click(resetTip);
+            $('.modal-dialog-tip [data-func="publishTip"]').click(publish);
+            $('.modal-dialog-tip [data-func="manualSortTip"]').click(initManualSortPanel);
+            $('.modal-dialog-tip [data-func="reserveTip"]').click(reserve);
+            $('.modal-dialog-tip [data-func="cancelReserveTip"]').click(cancelReserve);
+            $('.modal-dialog-tip [data-func="resetTip"]').click(reset);
+            $('.manual-sort-bottom button:eq(0)').click(manualSortSubmit);
         });
-
-        // 给按钮绑定事件方法
-        $('.seating-menu-content button:eq(0)').click(manualSortTip);
-        $('.seating-menu-content button:eq(2)').click(reserveTip);
-        $('.seating-menu-content button:eq(3)').click(cancelReserveTip);
-        $('.seating-menu-content button:eq(4)').click(resetTip);
-        $('.modal-dialog-tip [data-func="publishTip"]').click(publish);
-        $('.modal-dialog-tip [data-func="manualSortTip"]').click(initManualSortPanel);
-        $('.modal-dialog-tip [data-func="reserveTip"]').click(reserve);
-        $('.modal-dialog-tip [data-func="cancelReserveTip"]').click(cancelReserve);
-        $('.modal-dialog-tip [data-func="resetTip"]').click(reset);
-        $('.manual-sort-bottom button:eq(0)').click(manualSortSubmit);
     });
+
+    // // 同步请求
+    // $.ajaxSetup({ 
+    //     async : false 
+    // });
+
+    // // 获取数据
+    // $.getJSON("https://gu-miao.github.io/project-in-Sinosoft/../data.json", function(data) {
+    //     // seatData = data;
+    //     for(let i = 0; i < data.length; ++i) {
+    //         for(let j = 0; j < data[i].length; ++j) {
+    //             loadData(data[i][j]);
+    //         }
+    //     }
+
+    //     // 初始化座位画布
+    //     initSeatCanvas("t1");
+    //     initSeatCanvas("t2");
+    //     initSeatCanvas("t3");
+
+    //     // 初始化座位序号画布
+    //     initSeatNumberSideCanvas();
+    //     initSeatNumberBottomCanvas();
+
+    //     var seatCanvas = $(".seat-canvas");
+
+    //     // 给画布绑定事件方法
+    //     $(seatCanvas).click(clickCanvas);
+    //     $(seatCanvas).mousemove(changePointer);
+    //     $(seatCanvas).mouseout(function() {
+    //         $("body").css("cursor", "default");
+    //     });
+
+    //     // 给按钮绑定事件方法
+    //     $('.seating-menu-content button:eq(0)').click(manualSortTip);
+    //     $('.seating-menu-content button:eq(2)').click(reserveTip);
+    //     $('.seating-menu-content button:eq(3)').click(cancelReserveTip);
+    //     $('.seating-menu-content button:eq(4)').click(resetTip);
+    //     $('.modal-dialog-tip [data-func="publishTip"]').click(publish);
+    //     $('.modal-dialog-tip [data-func="manualSortTip"]').click(initManualSortPanel);
+    //     $('.modal-dialog-tip [data-func="reserveTip"]').click(reserve);
+    //     $('.modal-dialog-tip [data-func="cancelReserveTip"]').click(cancelReserve);
+    //     $('.modal-dialog-tip [data-func="resetTip"]').click(reset);
+    //     $('.manual-sort-bottom button:eq(0)').click(manualSortSubmit);
+    // });
 
     /*
     ** 加载数据
