@@ -12,7 +12,7 @@ console.log(Promise);
 
 setInterval(function() {
 
-    fetch("../data.json", { method: "get" }).then(function(res) {
+    fetch("./data.json", { method: "get" }).then(function(res) {
         res.text().then(function (data) {
             var data = JSON.parse(data);
             console.log("data: ", data);
