@@ -3,16 +3,36 @@
     margin: 0;
 }
 
+.test {
+    padding: 20px;
+    margin: 50px 0 0 30px;
+} .test button {
+    width: 140px;
+    height: 50px;
+    background-color: #09c;
+    border: none;
+    color: #fff;
+    font-size: 18px;
+    border-radius: 10px;
+    outline: none;
+    margin-right: 10px;
+} .test button:hover {
+    background-color: #08b;
+}
+
+/* 模态框 */
 .video-dialog {
     width: 1200px !important;
     height: 675px;
 }
 
+/* 视频 */
 .video-dialog video  {
     width: 1200px;
     height: 675px;
 }
 
+/* 关闭按钮 */
 .video-dialog .close {
     width: 30px;
     height: 30px;

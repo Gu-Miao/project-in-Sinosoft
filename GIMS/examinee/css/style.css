@@ -76,6 +76,11 @@ body {
     height: 80%;
     border: 1px solid #337ab7;
     margin: 29px 0 0 5%;
+    text-align: center;
+} .examinee-panel p {
+    margin-top: 50px;
+    font-size: 36px;
+    font-weight: 600;
 }
 
 /* 关闭按钮容器 */
