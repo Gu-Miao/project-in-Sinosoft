@@ -1,0 +1,180 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-image: url("../res/bg.png");
+    background-size: cover;
+    font-size: 0.16rem;
+    font-weight: 500;
+    font-family: "微软雅黑";
+    color: #000;
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+}
+
+button, [type="button"] {
+    cursor: pointer;
+    font-size: 0.16rem;
+}
+
+/* 根节点 */
+.root {
+    width: 14.4rem;
+    /* outline: 0.01rem solid black; */
+    margin: 0.5rem auto 0 auto;
+}
+
+/* 操作行 */
+.opreation {
+    width: 100%;
+    height: 0.32rem;
+} .opreation button {
+    height: 100%;
+    line-height: 0.32rem;
+    float: right;
+    font-size: 0.14rem;
+    color: #fff;
+    border: none;
+    outline: none;
+    padding: 0 0.16rem;
+    border-radius: 0.03rem; 
+} .opreation button:nth-child(1) {
+    width: 1.64rem;
+    background-color: #0c9;
+    margin-right: 0.48rem;
+} .opreation button:nth-child(1):hover {
+    background-color: #0b8;
+} .opreation button:nth-child(1):active {
+    position: relative;
+    top: 0.01rem;
+    left: 0.01rem;
+} .opreation button:nth-child(2) {
+    width: 1.15rem;
+    background-color: #09c;
+    margin-right: 0.15rem;
+} .opreation button:nth-child(2):hover {
+    background-color: #08b;
+} .opreation button:nth-child(2):active {
+    position: relative;
+    top: 0.01rem;
+    left: 0.01rem;
+} .opreation button:nth-child(2) i {
+    font-size: 0.16rem;
+    position: relative;
+    top: 0.02rem;
+    left: 0;
+}
+
+
+
+/* 标题 */
+.title {
+    width: 100%;
+    height: 0.59rem;
+    font-size: 0.24rem;
+    display: block;
+} .title div {
+    width: 0.1rem;
+    height: 0.25rem;
+    display: inline-block;
+    background: #33cbcc;
+    vertical-align: middle;
+    position: relative;
+    top: 0.02rem;
+    left: 0;
+} .title span {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+/* 选择时间 */
+.date {
+    width: 100%;
+    height: 1.2rem;
+    line-height: 1.2rem;
+} .date label {
+    margin-right: 0.17rem;
+} .date label:nth-child(1) {
+    margin-left: 0.46rem;
+} .date [type="button"] {
+    width: 3.23rem;
+    height: 0.32rem;
+    line-height: 0.32rem;
+    background-color: #fff;
+    border: 0.01rem solid #ccc;
+    border-radius: 0.05rem;
+    outline: none;
+    /* padding: 0.05rem; */
+} .date [type="button"]:nth-child(2) {
+    margin-right: 0.37rem;
+} .date [type="button"]:nth-child(4) {
+    margin-right: 0.24rem;
+}  .date [type="button"]:nth-child(5) {
+    width: 1rem;
+    height: 0.32rem;
+    font-size: 0.16rem;
+    background-color: #09c;
+    border: none;
+    /* outline: none; */
+    color: #fff;
+    border-radius: 0.05rem;
+    
+} .date [type="button"]:nth-child(5):hover {
+    background-color: #08b;
+} .date [type="button"]:nth-child(5):active {
+    padding-top: 0.01rem;
+    padding-left: 0.01rem;
+}
+
+/* 选择屏幕 */
+.screen {
+    width: 100%;
+    margin-top: 1.17rem;
+} .screen div {
+    width: 6.49rem;
+    height: 4.14rem;
+    border: 0.1rem dashed #ccc;
+    text-align: center;
+    cursor: pointer;
+} .screen p {
+    font-size: 0.72rem;
+    color: #ccc;
+    margin-top: 0.75rem;
+} .screen button {
+    width: 4.39rem;
+    height: 0.88rem;
+    font-size: 0.36rem;
+    color: #fff;
+    background-color: #ccc;
+    margin-top: 0.7rem;
+    border: none;
+    outline: none;
+    border-radius: 0.1rem;
+}
+
+/* 左侧屏幕 */
+.left {
+    float: left;
+}
+
+/* 右侧屏幕 */
+.right {
+    float: right;
+}
+
+/* 激活项 */
+.screen .active-div {
+    border: 0.1rem dashed #33cbcc;
+}
+
+.screen .active-p {
+    color: #33cbcc;
+}
+
+.screen .active-button {
+    background-color: #33cbcc;
+}

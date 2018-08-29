@@ -1,0 +1,42 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+/* 模拟固定宽度 */
+.list-item {
+    width: 500px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin: 30px;
+    padding: 8px;
+}
+
+.list-item .list-title {
+    font-size: 24px;
+    font-weight: 600;
+    padding: 8px;
+    border-bottom: 1px solid #ccc;
+}
+
+/* 不换行，文字溢出自动省略 */
+.list-item .list-title p {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* 列表项内容 */
+.list-content {
+    width: 100%;
+    padding: 8px;
+    line-height: 1.8;
+}
+
+/* 显示标题内容 */
+.title-content {
+    width: 500px;
+    outline: 1px dashed #ccc;
+    margin: 30px;
+    padding: 8px;
+}
