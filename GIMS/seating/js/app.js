@@ -2,7 +2,9 @@ $(function() {
 
     fetch("./data.json", { method: "get" }).then(function(res) {
         res.text().then(function(data) {
-            seatData = JSON.parse(data);
+            var data = JSON.parse(data);
+
+            console.log(data);
 
             for(let i = 0; i < data.length; ++i) {
                 for(let j = 0; j < data[i].length; ++j) {
@@ -767,8 +769,6 @@ $(function() {
                 col: row
             }
 
-            // console.log(position);
-
             checkSeat(position, state, target);
             addCheckedInfo(position, state, target);
         }
@@ -785,10 +785,15 @@ $(function() {
 
             var position = selectedObj[i].position;
             var target = selectedObj[i].target;
+            var row = position.row-1;
+            var col = position.col-1;
+
+            seatData[target].seats[row][col].owner = "";
 
             checkSeat(position, 4, target);
             addCheckedInfo(position, 4, target);
         }
+
     }
 
     /*
@@ -822,8 +827,6 @@ $(function() {
     function reset() {
         var selectedObj = isSeatSelected();
 
-        // console.log(selectedObj);
-
         if(selectedObj.length) {
             for(let i = 0; i < selectedObj.length; ++i) {
 
@@ -836,14 +839,13 @@ $(function() {
         } else {
             for(let i = 1; i <= 3; ++i) {
                 var target = "t" + i;
-                console.log(target);
                 for(let j = 0; j < seatData[target].seats.length; ++j) {
                     for(let k = 0; k < seatData[target].seats[j].length; ++k) {
                         var position = {
-                            row: seatData[target].seats[j][k].row,
-                            col: seatData[target].seats[j][k].col
+                            row: j+1,
+                            col: k+1
                         }
-
+                        seatData[target].seats[j][k].owner = "";
                         checkSeat(position, 0, target);
                         addCheckedInfo(position, 0, target);
                     }

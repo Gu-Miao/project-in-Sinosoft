@@ -11,7 +11,7 @@ html {
 body {
     width: 1600px;
     height: 100%;
-    background-color: #ccc;
+    background-color: #fff;
     overflow-x: hidden;
     position: absolute;
     top: 0;
@@ -21,6 +21,10 @@ body {
 @media screen and (max-width: 1599px) {
     html { overflow: visible; }
     body { overflow-x: scroll; }
+} @media screen and (min-width: 1600px) {
+    body {
+        width: 100%;
+    }
 }
 
 /* 隐藏滚动条 */
@@ -38,9 +42,9 @@ body {
 .st {
     width: 1600px;
     height: 900px;
-    /* margin: 0px auto 0 auto; */
     background-color: #fff;
-    /* outline: 1px solid brown; */
+    outline: 1px solid red;
+    margin: 0 auto;
 }
 
 /* 主题界面 */
