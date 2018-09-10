@@ -19,8 +19,11 @@ $(function () {
     //         throw new Error("There are no question in the paper! Please check it.");
     //     }
     // });
-    fetch("./data.json", { method: "get" }).then(function(res) {
+    fetch("./../data.json", { method: "get" }).then(function(res) {
         res.text().then(function(data) {
+            var data = JSON.parse(data);
+            console.log(data);
+
             // 初始化答题须知，试卷名，考生信息
             $examNote.init();
             $paperName.init(data.data.name);
