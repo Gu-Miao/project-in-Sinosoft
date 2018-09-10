@@ -1,23 +1,38 @@
 $(function () {
-    $.ajaxSetup({
-        async: false
-    });
+    // $.ajaxSetup({
+    //     async: false
+    // });
 
-    // 获取数据
-    $.getJSON("../data.json", function (data) {
-        console.log(data);
+    // // 获取数据
+    // $.getJSON("../data.json", function (data) {
+    //     console.log(data);
 
-        // 初始化答题须知，试卷名，考生信息
-        $examNote.init();
-        $paperName.init(data.data.name);
-        $examineeInfo.init();
-        if (data.data.group.length) {
-            for (var i in data.data.group) {
-                loadQuestionFormQuestionType(data.data.group[i].questionType, data.data.group[i]);
+    //     // 初始化答题须知，试卷名，考生信息
+    //     $examNote.init();
+    //     $paperName.init(data.data.name);
+    //     $examineeInfo.init();
+    //     if (data.data.group.length) {
+    //         for (var i in data.data.group) {
+    //             loadQuestionFormQuestionType(data.data.group[i].questionType, data.data.group[i]);
+    //         }
+    //     } else {
+    //         throw new Error("There are no question in the paper! Please check it.");
+    //     }
+    // });
+    fetch("./data.json", { method: "get" }).then(function(res) {
+        res.text().then(function(data) {
+            // 初始化答题须知，试卷名，考生信息
+            $examNote.init();
+            $paperName.init(data.data.name);
+            $examineeInfo.init();
+            if (data.data.group.length) {
+                for (var i in data.data.group) {
+                    loadQuestionFormQuestionType(data.data.group[i].questionType, data.data.group[i]);
+                }
+            } else {
+                throw new Error("There are no question in the paper! Please check it.");
             }
-        } else {
-            throw new Error("There are no question in the paper! Please check it.");
-        }
+        });
     });
 });
 
