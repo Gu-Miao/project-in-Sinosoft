@@ -5,18 +5,59 @@ $(function () {
 
     // 获取数据
     $.getJSON("../data.json", function (data) {
-        console.log(data.data);
-        
+        console.log(data);
+
+        // 初始化答题须知，试卷名，考生信息
         $examNote.init();
         $paperName.init(data.data.name);
         $examineeInfo.init();
-        $singleChoise.init(data.data.group[0]);
-        $multipleChoice.init(data.data.group[1]);
-        $judgement.init(data.data.group[2]);
-        $completion.init(data.data.group[3]);
-        $shortAnswer.init(data.data.group[4]);
+        if (data.data.group.length) {
+            for (var i in data.data.group) {
+                loadQuestionFormQuestionType(data.data.group[i].questionType, data.data.group[i]);
+            }
+        } else {
+            throw new Error("There are no question in the paper! Please check it.");
+        }
     });
 });
+
+// 根据题型加载题目
+function loadQuestionFormQuestionType(questionType, group) {
+    var questionType = Number(questionType);
+    console.log(questionType);
+
+    switch (questionType) {
+        case 1:
+            $singleChoise.init(group);
+            loadNavFormQuestionType("single-choise", "单选题");
+            break;
+        case 2:
+            $multipleChoice.init(group);
+            loadNavFormQuestionType("multiple-choice", "多选题");
+            break;
+        case 3:
+            $judgement.init(group);
+            loadNavFormQuestionType("judgement", "判断题");
+            break;
+        case 4:
+            $completion.init(group);
+            loadNavFormQuestionType("completion", "填空题");
+            break;
+        case 5:
+            $shortAnswer.init(group);
+            loadNavFormQuestionType("short-answer", "简答题");
+            break;
+        default:
+            throw new Error("Uncaught questionType: " + questionType);
+            break;
+    }
+}
+
+// 根据题型初始化导航栏
+function loadNavFormQuestionType(questionBlockId, questionTypeStr) {
+    $('.exam_map ul').append($('<li><a href="#' + questionBlockId + '">' + questionTypeStr + '</a></li>'));
+}
+
 
 // 答题须知
 var $examNote = function() {
@@ -300,8 +341,6 @@ var $completion  = function() {
 
                 // 添加选项
                 var $optionClone = $option.clone();
-
-                console.log($optionClone);
 
                 if(j == data.question[i].list.length-1) $($optionClone[1]).html("。");
                 $optionClone.find('label input').attr("name", data.question[i].id);
