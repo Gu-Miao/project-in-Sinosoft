@@ -19,7 +19,7 @@ $(function () {
     //         throw new Error("There are no question in the paper! Please check it.");
     //     }
     // });
-    fetch("./../data.json", { method: "get" }).then(function(res) {
+    fetch("./data.json", { method: "get" }).then(function(res) {
         res.text().then(function(data) {
             var data = JSON.parse(data);
             console.log(data);
@@ -42,7 +42,6 @@ $(function () {
 // 根据题型加载题目
 function loadQuestionFormQuestionType(questionType, group) {
     var questionType = Number(questionType);
-    console.log(questionType);
 
     switch (questionType) {
         case 1:
