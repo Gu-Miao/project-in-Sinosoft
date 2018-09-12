@@ -18,8 +18,25 @@ $(function () {
         } else {
             throw new Error("There are no question in the paper! Please check it.");
         }
-        $('.exam_top .btn').click(data.data, getAnswer);
     });
+    // fetch("./data.json", { method: "get" }).then(function(res) {
+    //     res.text().then(function(data) {
+    //         var data = JSON.parse(data);
+    //         console.log(data);
+
+    //         // 初始化答题须知，试卷名，考生信息
+    //         $examNote.init();
+    //         $paperName.init(data.data.name);
+    //         $examineeInfo.init();
+    //         if (data.data.group.length) {
+    //             for (var i in data.data.group) {
+    //                 loadQuestionFormQuestionType(data.data.group[i].questionType, data.data.group[i]);
+    //             }
+    //         } else {
+    //             throw new Error("There are no question in the paper! Please check it.");
+    //         }
+    //     });
+    // });
 });
 
 // 根据题型加载题目
@@ -170,9 +187,7 @@ var $singleChoise = function() {
 
                 // 添加选项
                 var $optionClone = $option.clone();
-                $optionClone.find('label input')
-                    .attr("name", data.question[i].id)
-                    .attr("value", data.question[i].list[j].content);
+                $optionClone.find('label input').attr("value", data.question[i].list[j].content);
                 $optionClone.find('label span').html(data.question[i].list[j].content);
                 $dom.find('.exam_answer:eq(' + i + ')').append($optionClone);
             }
@@ -231,7 +246,8 @@ var $multipleChoice = function() {
 
                 // 添加选项
                 var $optionClone = $option.clone();
-                $optionClone.find('label input').attr("value", data.question[i].list[j].content);
+                $optionClone.find('label input')
+                    .attr("value", data.question[i].list[j].content);
                 $optionClone.find('label span').html(data.question[i].list[j].content);
                 $dom.find('.exam_answer:eq(' + i + ')').append($optionClone);
             }
@@ -289,7 +305,6 @@ var $judgement  = function() {
                 // 添加选项
                 var $optionClone = $option.clone();
                 $optionClone.find('input')
-                    .attr("name", data.question[i].id)
                     .attr("value", data.question[i].list[j].content);
                 $optionClone.find('span').html(data.question[i].list[j].content);
                 $dom.find('.exam_answer:eq(' + i + ')').append($optionClone);
@@ -403,126 +418,3 @@ var $shortAnswer  = function() {
         init: init
     };
 }();
-
-// 提交试卷
-function getAnswer(event) {
-
-    console.log(event.data);
-
-    var answer = {
-        id: event.data.id,
-        name: event.data.name,
-        singleChoise: [],
-        multipleChoise: [],
-        judgement: [],
-        completion: [],
-        shortAnswer: []
-    };
-    
-    // 单选题
-    var $pageBlock = $('#single-choise .exam_page_block');
-    if($pageBlock.length) {
-        for(var i = 0; i < $pageBlock.find('.exam_answer').length; ++i) {
-            var $answer = $pageBlock.find('.exam_answer:eq(' + i + ')');
-
-            var text = (i+1) +".";
-            var questionId = $pageBlock.find('.exam_one_question').attr("name");
-
-            for(var j = 0; j < $answer.children().length; ++j) {
-                if($answer.find('[type="radio"]:eq(' + j + ')').is(':checked')) {
-                    text += (j+1) + ";";
-                    
-                    break;
-                }
-            }
-            answer.singleChoise[i] = { questionId: questionId, answer: text };
-        }
-    }
-
-    // 多选题
-    var $pageBlock = $('#multiple-choice .exam_page_block');
-    if($pageBlock.length) {
-        for(var i = 0; i < $pageBlock.find('.exam_answer').length; ++i) {
-            var $answer = $pageBlock.find('.exam_answer:eq(' + i + ')');
-
-            var text = (i+1) +".";
-            var questionId = $pageBlock.find('.exam_one_question').attr("name");
-
-            for(var j = 0; j < $answer.children().length; ++j) {
-                if($answer.find('[type="checkbox"]:eq(' + j + ')').is(':checked')) {
-                    text += (j+1) + ", ";
-                }
-            }
-            text = text.slice(0, text.length-2) + ";";
-            answer.multipleChoise[i] = { questionId: questionId, answer: text };
-        }
-    }
-
-    // 判断题
-    var $pageBlock = $('#judgement .exam_page_block');
-    if($pageBlock.length) {
-        for(var i = 0; i < $pageBlock.find('.exam_answer').length; ++i) {
-            var $answer = $pageBlock.find('.exam_answer:eq(' + i + ')');
-
-            var text = (i+1) +".";
-            var questionId = $pageBlock.find('.exam_one_question').attr("name");
-
-            for(var j = 0; j < $answer.children().length; ++j) {
-                if($answer.find('[type="radio"]:eq(' + j + ')').is(':checked')) {
-                    text += (j+1) + ";";
-                    answer.judgement.push(text);
-                    break;
-                }
-            }
-
-            answer.judgement[i] = { questionId: questionId, answer: text };
-        }
-    }
-
-    // 填空题
-    var $pageBlock = $('#completion .exam_page_block');
-    if($pageBlock.length) {
-        for(var i = 0; i < $pageBlock.find('.exam_answer').length; ++i) {
-            var $answer = $pageBlock.find('.exam_answer:eq(' + i + ')');
-
-            var text = (i+1) +".";
-            var questionId = $pageBlock.find('.exam_one_question').attr("name");
-
-            for(var j = 0; j < $answer.find('[type="text"]').length; ++j) {
-                text += $answer.find('[type="text"]:eq(' + j + ')').val() + ", ";
-            }
-
-            text = text.slice(0, text.length-2) + ";";
-            answer.completion[i] = { questionId: questionId, answer: text };
-        }
-    }
-    
-    // 简答题
-    var $pageBlock = $('#short-answer .exam_page_block');
-    if($pageBlock.length) {
-        for(var i = 0; i < $pageBlock.find('.exam_answer').length; ++i) {
-            var $answer = $pageBlock.find('.exam_answer:eq(' + i + ')');
-
-            var text = (i+1) +".";
-            var questionId = $pageBlock.find('.exam_one_question').attr("name");
-
-            for(var j = 0; j < $answer.find('textarea').length; ++j) {
-
-                console.log($answer.find('textarea:eq(' + j + ')').val());
-               
-                text += $answer.find('textarea:eq(' + j + ')').html() + ";";
-            }
-
-            answer.shortAnswer[i] = { questionId: questionId, answer: text };
-        }
-    }
-
-    console.log(JSON.stringify(answer));
-
-    return JSON.stringify(answer);
-}
-
-// function initModal() {
-//     var innerP = $('<p><p>');
-//     var inner = "";
-// }

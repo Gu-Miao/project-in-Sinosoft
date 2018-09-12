@@ -1,0 +1,44 @@
+{
+    "singleChoise": [
+        {
+            "questionId": "4028948665a841900165a84c86000010",
+            "answer": "1.3;"
+        },
+        {
+            "questionId": "4028948665a841900165a84c86000010",
+            "answer": "2.2;"
+        }
+    ],
+    "multipleChoise": [
+        {
+            "questionId": "4028948665a841900165a84ef4b3002e",
+            "answer": "1.2, 3;"
+        }
+    ],
+    "judgement": [
+        {
+            "questionId": "4028948665a841900165a84dab2f0027",
+            "answer": "1.2;"
+        },
+        {
+            "questionId": "4028948665a841900165a84dab2f0027",
+            "answer": "2.2;"
+        }
+    ],
+    "completion": [
+        {
+            "questionId": "4028948665a841900165a84f77000033",
+            "answer": "1.asdf, fasdf, ads;"
+        },
+        {
+            "questionId": "4028948665a841900165a84f77000033",
+            "answer": "2.asdfasd, fasd, fadsfasdf;"
+        }
+    ],
+    "shortAnswer": [
+        {
+            "questionId": "4028948665a841900165a85141290037",
+            "answer": "1.;"
+        }
+    ]
+}
