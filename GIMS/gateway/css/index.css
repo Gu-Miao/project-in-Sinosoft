@@ -1,0 +1,357 @@
+body {
+    background-color: #fafafa;
+}
+
+.head {
+    background-image: url(../img/head-bg.jpg);
+    background-size: cover;
+}
+
+.hide {
+    display: none;
+}
+
+.inner {
+    width: 1200px;
+    margin: 0 auto;
+}
+
+.headerTop {
+    height: 45px;
+    line-height: 45px;
+    font-size: 14px;
+    color: #fff;
+    background: rgba(0, 0, 0, 0.5);
+}
+
+.headerTop a {
+    color: #fff;
+    float: right;
+}
+
+.headerTop .userbox {
+    position: relative;
+}
+
+.headerTop .userbox img {
+    position: absolute;
+    left: -30px;
+    top: 5px;
+}
+
+.loginBox {
+    padding-top: 40px;
+    padding-bottom: 40px;
+}
+
+.loginBox .inner {
+    height: 76px;
+    line-height: 76px;
+}
+
+.loginBox .logo {
+    float: left;
+    width: 60px;
+    margin-right: 6px;
+    margin-top: 6px;
+}
+
+.loginBox .title {
+    color: #fff;
+    float: left;
+    font-size: 36px;
+    line-height: 76px;
+}
+
+.loginBox .searchBox {
+    color: #fff;
+    float: right;
+}
+
+.searchBox input {
+    vertical-align: middle;
+    border: none;
+    height: 40px;
+    width: 200px;
+    background-color: rgba(255, 255, 255, 0.2)
+}
+
+.searchBox select {
+    vertical-align: middle;
+    border: none;
+    height: 40px;
+    padding-left: 10px;
+    background-color: rgba(255, 255, 255, 0.2)
+}
+
+.searchBox select option {
+    color: #333;
+}
+
+.searchBox button {
+    vertical-align: middle;
+    background-color: #ff480a;
+    height: 40px;
+    line-height: 40px;
+    width: 64px;
+    border: none;
+}
+
+.nav {
+    background-color: #058edc;
+}
+
+.nav li {
+    float: left;
+    height: 60px;
+    line-height: 60px;
+    color: #fff;
+    font-size: 18px;
+    padding: 0 35px;
+    cursor: pointer;
+    text-align: center;
+}
+
+.nav-active {
+    background-color: #03b6d7 !important;
+}
+
+.nav li i {
+    font-size: 22px;
+    line-height: 65px;
+    margin-right: 6px;
+    vertical-align: middle;
+}
+
+/*bannerNews*/
+
+.bannerNews {
+    margin-top: 12px;
+}
+
+.bannerImg {
+    float: left;
+    position: absolute;
+}
+
+.swiper-container {
+    width: 750px;
+}
+
+.bannerNews .swiper-container .swiper-pagination-bullets {
+    width: 48px;
+    float: right;
+    left: auto;
+    top: auto;
+    right: 10px;
+    bottom: 10px;
+} .bannerNews .swiper-container .swiper-pagination-bullets .swiper-pagination-bullet {
+    margin: 0 4px;
+    outline: none;
+}
+
+.banner-bottom {
+    height: 40px;
+    background-color: rgba(4, 4, 4, .2);
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 55;
+} .banner-bottom .banner-title {
+    color: white;
+    line-height: 40px;
+    margin-left: 25px;
+}
+
+.bannerNewsLeft {
+    float: left;
+    margin-left: 17px;
+}
+
+.bannerNewsLeft .inforItem li {}
+
+.Topnews {
+    margin-left: -17px;
+}
+
+.Topnews:before {
+    content: "";
+    position: absolute;
+    height: 0 !important;
+    width: 0 !important;
+}
+
+.Topnum {
+    width: 24px;
+    height: 24px;
+    line-height: 24px;
+    text-align: center;
+    float: left;
+    background-color: #fe4709;
+    color: #fff;
+    margin-right: 10px;
+    margin-top: 5px;
+}
+
+.Topnews .Toptitle {
+    width: 260px !important;
+    height: 37px;
+    float: left;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.Topnews .Toptitle:hover {
+    cursor: pointer;
+    color: #2464B2;
+    text-decoration: underline;
+}
+
+.bannerNews .inforItem {
+    width: 430px;
+    height: 370px;
+    float: none;
+}
+
+.bannerNews .inforItem li p:first-child {
+    width: 280px;
+}
+
+.bannerFooterImg {
+    margin-top: 15px;
+}
+
+/*新闻图片列表*/
+
+.newsImgList {
+    margin-top: 16px;
+}
+
+.newsImgList li {
+    width: 390px;
+    height: 200px;
+    float: left;
+    border: 1px solid #efefef;
+}
+
+.newsImgList li img {
+    width: 100%;
+}
+
+.newsImgList li+li {
+    margin-left: 13px;
+}
+
+/* 新闻文字列表 */
+
+.newsList {
+    margin-top: 15px;
+}
+
+.newsList ul+ul {
+    margin-left: 10px;
+}
+
+.inforItem {
+    float: left;
+    width: 393px;
+    border: 1px solid #efefef;
+    padding-bottom: 10px;
+}
+
+.inforItem li {
+    color: #333;
+    font-size: 15px;
+    line-height: 37px;
+    padding: 0 15px 0 30px;
+    position: relative;
+}
+
+.inforItem li:before {
+    content: "";
+    position: absolute;
+    height: 5px;
+    width: 5px;
+    background-color: #2967ba;
+    left: 10px;
+    top: 15px;
+}
+
+.inforItem li p:first-child {
+    width: 250px;
+    height: 37px;
+    float: left;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.inforItem li p:first-child:hover {
+    cursor: pointer;
+    color: #2464B2;
+    text-decoration: underline;
+}
+
+.inforItem li p:last-child {
+    float: right;
+}
+
+.inforTitle {
+    background-color: #eeeeee;
+    color: #333;
+    line-height: 42px;
+    font-size: 16px;
+    padding: 0 15px;
+    font-weight: bold;
+    position: relative;
+    margin-bottom: 10px;
+}
+
+.inforTitle i {
+    font-weight: normal;
+}
+
+.inforTitle a {
+    font-weight: normal;
+}
+
+.inforTitle:before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 42px;
+    width: 4px;
+    background-color: #fe4709;
+}
+
+.inforTitle a {
+    float: right;
+    color: #393939;
+    font-size: 14px;
+}
+
+.inforTitle i {
+    font-size: 20px;
+    vertical-align: middle;
+    margin-right: 6px;
+}
+
+/*底部声明文件*/
+
+footer {
+    margin: 30px 0;
+    text-align: center;
+}
+
+footer a {
+    color: #333;
+    font-size: 14px;
+}
+
+footer a:hover {
+    color: red;
+    text-decoration: underline;
+}
