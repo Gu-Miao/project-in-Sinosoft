@@ -7,6 +7,9 @@ $(function () {
         // $examNote.init();
         $paperName.init(data.data.name);
         // $examineeInfo.init();
+
+        // 修改分数
+        $('.exam_top .time').html(Number(data.data.zgscore) + Number(data.data.kgscore));
         if (data.data.group.length) {
             for (var i in data.data.group) {
                 loadQuestionFormQuestionType(data.data.group[i].questionType, data.data.group[i]);
@@ -14,6 +17,7 @@ $(function () {
         } else {
             throw new Error("There are no question in the paper! Please check it.");
         }
+        $('input[type="radio"], input[type="checkbox"]').attr('disabled', true);
         $('.exam_map ul li a').click(function (e) {
 
             e.preventDefault();
@@ -24,12 +28,6 @@ $(function () {
 
             $(document).scrollTop(position - 80);
         });
-        $('.exam_top .btn').click(data.data, getAnswer);
-
-        var timer = window.setInterval(function () {
-            showTimeout(reduceTime($('.time').html()));
-            if (!reduceTime($('.time').html())) window.clearInterval(timer);
-        }, 1000);
     });
 });
 
@@ -164,6 +162,17 @@ var $singleChoise = function () {
         + '</label>'
         + '</div>');
 
+    var $analysis = $(''
+        + '<div class="exam_analysis">'
+        + '<div class="score">'
+        + '得 <b class="red"></b> 分'
+        + '</div>'
+        + '<div class="main">'
+        + '正确答案：<b class="green"></b> &nbsp;&nbsp;&nbsp;&nbsp;考生答案：<b class="black"></b><br>'
+        + '答案解析：<span></span>'
+        + '</div>'
+        + '</div>');
+
     // 初始化
     function init(data) {
         $dom.find('.exam_page_h2 span:eq(1)').html('（共' + data.questionCount + '题，每题' + data.everyScore + '分）');
@@ -176,6 +185,8 @@ var $singleChoise = function () {
             $questionClone.find('.exam_subject').html(i + 1 + "." + data.question[i].describe);
             $questionClone.attr("name", data.question[i].id);
             $dom.find('.exam_page_block').append($questionClone);
+            var rightAnswer = 0;
+            var checkAnswer = data.question[i].isCheck;
 
             for (var j = 0; j < data.question[i].list.length; ++j) {
 
@@ -186,7 +197,21 @@ var $singleChoise = function () {
                     .attr("value", data.question[i].list[j].content);
                 $optionClone.find('label span').html(data.question[i].list[j].content);
                 $dom.find('.exam_answer:eq(' + i + ')').append($optionClone);
+
+                if (Number(data.question[i].list[j].isRight)) rightAnswer = j + 1;
+                if ((Number(checkAnswer) - 1) === j) $optionClone.find('[type="radio"]').attr('checked', true);
+
             }
+            var $analysisClone = $analysis.clone();
+            $analysisClone.find('.score .red').html(data.question[i].score);
+            $analysisClone.find('.main .green').html(convertNumberToLetter(rightAnswer));
+            $analysisClone.find('.main .black').html(convertNumberToLetter(checkAnswer));
+            if (data.question[i].analysis) {
+                $analysisClone.find('.main span').html(data.question[i].analysis);
+            } else {
+                $analysisClone.find('.main span').html("暂无");
+            }
+            $dom.find('.exam_answer:eq(' + i + ')').append($analysisClone);
         }
         $('.exam_page').append($dom);
     }
@@ -225,6 +250,17 @@ var $multipleChoice = function () {
         + '</label>'
         + '</div>');
 
+    var $analysis = $(''
+        + '<div class="exam_analysis">'
+        + '<div class="score">'
+        + '得 <b class="red"></b> 分'
+        + '</div>'
+        + '<div class="main">'
+        + '正确答案：<b class="green"></b> &nbsp;&nbsp;&nbsp;&nbsp;考生答案：<b class="black"></b><br>'
+        + '答案解析：<span></span>'
+        + '</div>'
+        + '</div>');
+
     // 初始化
     function init(data) {
 
@@ -237,6 +273,9 @@ var $multipleChoice = function () {
             $questionClone.find('.exam_subject').html(i + 1 + "." + data.question[i].describe);
             $questionClone.attr("name", data.question[i].id);
             $dom.find('.exam_page_block').append($questionClone);
+            var rightAnswerArray = [];
+            var checkAnswer = "";
+            var checkAnswerArray = data.question[i].isCheck.split('#');
 
             for (var j = 0; j < data.question[i].list.length; ++j) {
 
@@ -245,7 +284,30 @@ var $multipleChoice = function () {
                 $optionClone.find('label input').attr("value", data.question[i].list[j].content);
                 $optionClone.find('label span').html(data.question[i].list[j].content);
                 $dom.find('.exam_answer:eq(' + i + ')').append($optionClone);
+
+                if (Number(data.question[i].list[j].isRight)) rightAnswerArray.push(j + 1);
+                if(j in checkAnswerArray.map(function (currentValue) { return --currentValue; })) $optionClone.find('[type="checkbox"]').attr('checked', true);
             }
+
+            var $analysisClone = $analysis.clone();
+            var rightAnswer = "";
+            $analysisClone.find('.score .red').html(data.question[i].score);
+            for (var k = 0; k < rightAnswerArray.length; ++k) {
+                rightAnswer += convertNumberToLetter(rightAnswerArray[k]) + " ";
+            }
+            for (var k = 0; k < checkAnswerArray.length; ++k) {
+                checkAnswer += convertNumberToLetter(checkAnswerArray[k]) + " ";
+            }
+            $analysisClone.find('.main .green').html(rightAnswer);
+            $analysisClone.find('.main .black').html(checkAnswer);
+
+            console.log(data.question, i);
+            if (data.question[i].analysis) {
+                $analysisClone.find('.main span').html(data.question[i].analysis);
+            } else {
+                $analysisClone.find('.main span').html("暂无");
+            }
+            $dom.find('.exam_answer:eq(' + i + ')').append($analysisClone);
         }
         $('.exam_page').append($dom);
     }
@@ -282,6 +344,17 @@ var $judgement = function () {
         + '<span></span>'
         + '</label>');
 
+    var $analysis = $(''
+        + '<div class="exam_analysis">'
+        + '<div class="score">'
+        + '得 <b class="red"></b> 分'
+        + '</div>'
+        + '<div class="main">'
+        + '正确答案：<b class="green"></b> &nbsp;&nbsp;&nbsp;&nbsp;考生答案：<b class="black"></b><br>'
+        + '答案解析：<span></span>'
+        + '</div>'
+        + '</div>');
+
     // 初始化
     function init(data) {
 
@@ -294,6 +367,8 @@ var $judgement = function () {
             $questionClone.find('.exam_subject').html(i + 1 + "." + data.question[i].describe);
             $questionClone.attr("name", data.question[i].id);
             $dom.find('.exam_page_block').append($questionClone);
+            var rightAnswer = 0;
+            var checkAnswer = data.question[i].isCheck;
 
             for (var j = 0; j < data.question[i].list.length; ++j) {
 
@@ -304,7 +379,21 @@ var $judgement = function () {
                     .attr("value", data.question[i].list[j].content);
                 $optionClone.find('span').html(data.question[i].list[j].content);
                 $dom.find('.exam_answer:eq(' + i + ')').append($optionClone);
+
+                if (Number(data.question[i].list[j].isRight)) rightAnswer = j + 1;
+                if ((Number(checkAnswer)-1) ===  j) $optionClone.find('[type="radio"]').attr('checked', true);
             }
+
+            var $analysisClone = $analysis.clone();
+            $analysisClone.find('.score .red').html(data.question[i].score);
+            $analysisClone.find('.main .green').html(convertNumberToLetter(rightAnswer));
+            $analysisClone.find('.main .black').html(convertNumberToLetter(checkAnswer));
+            if (data.question[i].analysis) {
+                $analysisClone.find('.main span').html(data.question[i].analysis);
+            } else {
+                $analysisClone.find('.main span').html("暂无");
+            }
+            $dom.find('.exam_answer:eq(' + i + ')').append($analysisClone);
         }
         $('.exam_page').append($dom);
     }
@@ -334,7 +423,16 @@ var $completion = function () {
         + '<div class="exam_answer"></div>'
         + '</div>');
 
-    var $option = $('<input class="line_input" type="text" name=""><span> ， </span>');
+    var $analysis = $(''
+        + '<div class="exam_analysis">'
+        + '<div class="score">得 <b class="red"></b> 分</div>'
+        + '<div class="main">'
+        + '正确答案：<b class="green"></b> <br>'
+        + '考生答案：<b class="black"></b><br>'
+        + '答案解析：<span></span>'
+        + '</div>'
+        + '</div>'
+    )
 
     // 初始化
     function init(data) {
@@ -348,17 +446,30 @@ var $completion = function () {
             $questionClone.find('.exam_subject').html(i + 1 + "." + data.question[i].describe);
             $questionClone.attr("name", data.question[i].id);
             $dom.find('.exam_page_block').append($questionClone);
-            $dom.find('.exam_answer:eq(' + i + ')').prepend($('<span>答案：</span>'));
+
+            var rightAnswer = "";
+            var checkAnswer = "";
+            var checkAnswerArray = data.question[i].optionContent.split('#');
 
             for (var j = 0; j < data.question[i].list.length; ++j) {
-
-                // 添加选项
-                var $optionClone = $option.clone();
-
-                if (j == data.question[i].list.length - 1) $($optionClone[1]).html("。");
-                $optionClone.find('span').html(data.question[i].list[j].content);
-                $dom.find('.exam_answer:eq(' + i + ')').append($optionClone);
+                rightAnswer += data.question[i].list[j].content + " ";
             }
+
+            var $analysisClone = $analysis.clone();
+            for (var k = 0; k < checkAnswerArray.length; ++k) {
+                checkAnswer += checkAnswerArray[k] + "　";
+            }
+            $analysisClone.find('.score .red').html(data.question[i].score);
+            $analysisClone.find('.main .green').html(rightAnswer);
+            $analysisClone.find('.main .black').html(checkAnswer);
+
+            console.log(data.question, i);
+            if (data.question[i].analysis) {
+                $analysisClone.find('.main span').html(data.question[i].analysis);
+            } else {
+                $analysisClone.find('.main span').html("暂无");
+            }
+            $dom.find('.exam_answer:eq(' + i + ')').append($analysisClone);
         }
         $('.exam_page').append($dom);
     }
@@ -388,7 +499,16 @@ var $shortAnswer = function () {
         + '<div class="exam_answer"></div>'
         + '</div>');
 
-    var $option = $('<textarea class="form-control" rows="3"></textarea>');
+    var $option = $('<textarea class="form-control no-resize" rows="3" readonly></textarea>');
+
+    var $analysis = $(''
+        + '<div class="exam_analysis">'
+        + '<div class="score">得 <b class="red"></b> 分</div>'
+        + '<div class="main">'
+        + '答案解析：<span></span>'
+        + '</div>'
+        + '</div>'
+    )
 
     // 初始化
     function init(data) {
@@ -400,12 +520,20 @@ var $shortAnswer = function () {
             // 添加题目
             var $questionClone = $question.clone();
             $questionClone.find('.exam_subject').html(i + 1 + "." + data.question[i].describe);
-            $questionClone.attr("name", data.question[i].id);
+            $questionClone.attr("name", data.question[i].id)
+
             $dom.find('.exam_page_block').append($questionClone);
 
             // 添加选项
             var $optionClone = $option.clone();
+            $optionClone.val(data.question[i].optionContent);
             $dom.find('.exam_answer:eq(' + i + ')').append($optionClone);
+
+            // 添加答案解析
+            var $analysisClone = $analysis.clone();
+            $analysisClone.find('.score .red').html(data.question[i].score);
+            $analysisClone.find('.main span').html(data.question[i].analysis);
+            $dom.find('.exam_answer:eq(' + i + ')').append($analysisClone);
         }
         $('.exam_page').append($dom);
     }
@@ -415,167 +543,25 @@ var $shortAnswer = function () {
     };
 }();
 
-// 提交试卷
-function getAnswer(event) {
 
-    console.log(event.data);
-
-    var answer = {
-        id: event.data.id,
-        name: event.data.name,
-        singleChoise: [],
-        multipleChoise: [],
-        judgement: [],
-        completion: [],
-        shortAnswer: []
-    };
-
-    // 单选题
-    var $pageBlock = $('#single-choise .exam_page_block');
-    var questionScore = $('#single-choise .exam_page_h2 span:eq(1)').html().split("题")[2].split("分")[0];
-    if ($pageBlock.length) {
-        for (var i = 0; i < $pageBlock.find('.exam_answer').length; ++i) {
-            var $answer = $pageBlock.find('.exam_answer:eq(' + i + ')');
-
-            var text = (i + 1) + ".";
-            var questionId = $pageBlock.find('.exam_one_question:eq(' + i + ')').attr("name");
-
-            for (var j = 0; j < $answer.children().length; ++j) {
-                if ($answer.find('[type="radio"]:eq(' + j + ')').is(':checked')) {
-                    text += (j + 1) + ";";
-
-                    break;
-                }
-            }
-
-            console.log(questionScore);
-            answer.singleChoise[i] = { questionId: questionId, answer: text, questionScore: questionScore };
-        }
+// 将数字转换成字母
+function convertNumberToLetter(number) {
+    var number = Number(number);
+    switch (number) {
+        case 1:
+            return "A";
+            break;
+        case 2:
+            return "B";
+            break;
+        case 3:
+            return "C";
+            break;
+        case 4:
+            return "D";
+            break;
+        default:
+            throw new Error("Can not convert this number to letter!");
+            break;
     }
-
-    // 多选题
-    var $pageBlock = $('#multiple-choice .exam_page_block');
-    var questionScore = $('#multiple-choice .exam_page_h2 span:eq(1)').html().split("题")[2].split("分")[0];
-    if ($pageBlock.length) {
-        for (var i = 0; i < $pageBlock.find('.exam_answer').length; ++i) {
-            var $answer = $pageBlock.find('.exam_answer:eq(' + i + ')');
-
-            var text = (i + 1) + ".";
-            var questionId = $pageBlock.find('.exam_one_question:eq(' + i + ')').attr("name");
-
-            for (var j = 0; j < $answer.children().length; ++j) {
-                if ($answer.find('[type="checkbox"]:eq(' + j + ')').is(':checked')) {
-                    text += (j + 1) + ", ";
-                }
-            }
-            text = text.slice(0, text.length - 2) + ";";
-            answer.multipleChoise[i] = { questionId: questionId, answer: text, questionScore: questionScore };
-        }
-    }
-
-    // 判断题
-    var $pageBlock = $('#judgement .exam_page_block');
-    var questionScore = $('#judgement .exam_page_h2 span:eq(1)').html().split("题")[2].split("分")[0];
-    if ($pageBlock.length) {
-        for (var i = 0; i < $pageBlock.find('.exam_answer').length; ++i) {
-            var $answer = $pageBlock.find('.exam_answer:eq(' + i + ')');
-
-            var text = (i + 1) + ".";
-            var questionId = $pageBlock.find('.exam_one_question:eq(' + i + ')').attr("name");
-
-            for (var j = 0; j < $answer.children().length; ++j) {
-                if ($answer.find('[type="radio"]:eq(' + j + ')').is(':checked')) {
-                    text += (j + 1) + ";";
-                    answer.judgement.push(text);
-                    break;
-                }
-            }
-
-            answer.judgement[i] = { questionId: questionId, answer: text, questionScore: questionScore };
-        }
-    }
-
-    // 填空题
-    var $pageBlock = $('#completion .exam_page_block');
-    var questionScore = $('#completion .exam_page_h2 span:eq(1)').html().split("题")[2].split("分")[0];
-    if ($pageBlock.length) {
-        for (var i = 0; i < $pageBlock.find('.exam_answer').length; ++i) {
-            var $answer = $pageBlock.find('.exam_answer:eq(' + i + ')');
-
-            var text = (i + 1) + ".";
-            var questionId = $pageBlock.find('.exam_one_question:eq(' + i + ')').attr("name");
-
-            for (var j = 0; j < $answer.find('[type="text"]').length; ++j) {
-                text += $answer.find('[type="text"]:eq(' + j + ')').val() + ", ";
-            }
-
-            text = text.slice(0, text.length - 2) + ";";
-            answer.completion[i] = { questionId: questionId, answer: text, questionScore: questionScore };
-        }
-    }
-
-    // 简答题
-    var $pageBlock = $('#short-answer .exam_page_block');
-    var questionScore = $('#short-answer .exam_page_h2 span:eq(1)').html().split("题")[2].split("分")[0];
-    if ($pageBlock.length) {
-        for (var i = 0; i < $pageBlock.find('.exam_answer').length; ++i) {
-            var $answer = $pageBlock.find('.exam_answer:eq(' + i + ')');
-
-            var text = (i + 1) + ".";
-            var questionId = $pageBlock.find('.exam_one_question:eq(' + i + ')').attr("name");
-
-            for (var j = 0; j < $answer.find('textarea').length; ++j) {
-
-                console.log($answer.find('textarea:eq(' + j + ')').val());
-
-                text += $answer.find('textarea:eq(' + j + ')').html() + ";";
-            }
-
-            answer.shortAnswer[i] = { questionId: questionId, answer: text, questionScore: questionScore };
-        }
-    }
-
-    console.log(answer);
-
-    return answer;
-}
-
-// 显示计时器
-function showTimeout(timeStr) {
-    $('.time').html(timeStr);
-}
-
-// 减少时间
-function reduceTime(timeStr) {
-
-    var hour = timeStr.split(':')[0];
-    var min = timeStr.split(':')[1];
-    var sec = timeStr.split(':')[2];
-
-    if (sec === "00") {
-        if (min === "00") {
-            if (hour === "00") {
-                return false;
-            } else {
-                min = "59";
-                hour = reduceNumStr(hour);
-            }
-        } else {
-            sec = "59";
-            min = reduceNumStr(min);
-        }
-    } else {
-        sec = reduceNumStr(sec);
-    }
-
-    return hour + ":" + min + ":" + sec;
-}
-
-// 处理数字内容字符串
-function reduceNumStr(numStr) {
-
-    numStr = String(Number(--numStr));
-    if (numStr.length <= 1) numStr = "0" + numStr;
-
-    return numStr;
 }

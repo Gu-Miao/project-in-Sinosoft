@@ -18,4 +18,4 @@ var server = http.createServer(function(req, res) {
     fs.createReadStream(fileName).pipe(res);
   }
   
-}).listen(8002);
+}).listen(8000);

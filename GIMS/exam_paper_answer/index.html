@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>在线考试</title>
+    <link rel="icon" href="./images/favicon.ico">
+    <link href="css/bootstrap.css" type="text/css" rel="stylesheet">
+    <link href="css/style.css" type="text/css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+		  <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+		  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+		<![endif]-->
+</head>
+
+<body class="exam_bj">
+
+    <!-- 固定顶端 倒计时和按钮--> -->
+    <div class="exam_top">
+        <div class="container">
+            您的成绩：<span class="time">96</span> 分
+        </div>
+    </div>
+
+    <div class="container exam_main">
+        <div class="row">
+            <div class="col-sm-10">
+
+                <!--试卷内容-->
+                <div class="exam_page"></div>
+
+            </div>
+
+            <!--快速定位-->
+            <div class="col-sm-2 hidden-xs" style="position: relative;">
+                
+                <div class="exam_map">
+                    <div class="title">题目列表</div>
+                    <div class="main">
+                        <ul></ul>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</body>
+
+<script src="js/jquery-1.11.2.min.js"></script>
+<script src="js/bootstrap.js"></script>
+<!-- <script src="../../common/js/polyfill.min.js"></script>
+<script src="../../common/js/fetch.js"></script> -->
+<script src="js/app.js"></script>
+
+</html>
