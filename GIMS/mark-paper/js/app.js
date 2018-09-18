@@ -1,6 +1,6 @@
 $(function () {
     fetch("./data.json", { method: "get" }).then(function (res) {
-        res.text().then(function () {
+        res.text().then(function (data) {
             // 初始化评卷面板
             $markQuestion.init(data.data);
 
