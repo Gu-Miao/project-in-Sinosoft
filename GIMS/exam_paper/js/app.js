@@ -558,6 +558,7 @@ function reduceTime(timeStr) {
                 return false;
             } else {
                 min = "59";
+                sec = "59";
                 hour = reduceNumStr(hour);
             }
         } else {

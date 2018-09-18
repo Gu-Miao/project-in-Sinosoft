@@ -158,7 +158,7 @@ var $singleChoise = function () {
         + '<div class="radio">'
         + '<label>'
         + '<input type="radio" name="" value="">'
-        + "<span>A Option one is this and that&mdash;be sure to include why it's great</span>"
+        + "<span></span>"
         + '</label>'
         + '</div>');
 
@@ -195,7 +195,7 @@ var $singleChoise = function () {
                 $optionClone.find('label input')
                     .attr("name", data.question[i].id)
                     .attr("value", data.question[i].list[j].content);
-                $optionClone.find('label span').html(data.question[i].list[j].content);
+                $optionClone.find('label span').html(convertNumberToLetter(j+1)+'. '+data.question[i].list[j].content);
                 $dom.find('.exam_answer:eq(' + i + ')').append($optionClone);
 
                 if (Number(data.question[i].list[j].isRight)) rightAnswer = j + 1;
@@ -238,7 +238,7 @@ var $multipleChoice = function () {
 
     var $question = $(''
         + '<div class="exam_one_question">'
-        + '<div class="exam_subject">2. 您最愿意接受应急救护的培训形式有：</div>'
+        + '<div class="exam_subject"></div>'
         + '<div class="exam_answer"></div>'
         + '</div>');
 
@@ -282,11 +282,13 @@ var $multipleChoice = function () {
                 // 添加选项
                 var $optionClone = $option.clone();
                 $optionClone.find('label input').attr("value", data.question[i].list[j].content);
-                $optionClone.find('label span').html(data.question[i].list[j].content);
+                $optionClone.find('label span').html(convertNumberToLetter(j+1)+'. '+data.question[i].list[j].content);
                 $dom.find('.exam_answer:eq(' + i + ')').append($optionClone);
 
                 if (Number(data.question[i].list[j].isRight)) rightAnswerArray.push(j + 1);
-                if(j in checkAnswerArray.map(function (currentValue) { return --currentValue; })) $optionClone.find('[type="checkbox"]').attr('checked', true);
+                for(var k = 0; k < checkAnswerArray.length; ++k) {
+                    if(checkAnswerArray[k] == (j+1)) $optionClone.find('[type="checkbox"]').attr('checked', true);
+                }
             }
 
             var $analysisClone = $analysis.clone();
@@ -377,7 +379,7 @@ var $judgement = function () {
                 $optionClone.find('input')
                     .attr("name", data.question[i].id)
                     .attr("value", data.question[i].list[j].content);
-                $optionClone.find('span').html(data.question[i].list[j].content);
+                $optionClone.find('span').html(convertNumberToLetter(j+1)+'. '+data.question[i].list[j].content);
                 $dom.find('.exam_answer:eq(' + i + ')').append($optionClone);
 
                 if (Number(data.question[i].list[j].isRight)) rightAnswer = j + 1;
