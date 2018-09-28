@@ -1,20 +1,27 @@
 $(function () {
-    fetch("./data.json", { method: "get" }).then(function (res) {
-        res.text().then(function (data) {
-            // 初始化评卷面板
-            $markQuestion.init(data.data);
+    // fetch("../data.json", { method: "get" }).then(function (res) {
+    //     console.log(res);
+    //     res.text().then(function (data) {
+    //         // 初始化评卷面板
+    //         $markQuestion.init(data.data);
 
-            // 给按钮绑定方法
-            $('.mark-footer [name="save"]').click(clickSaveButton);
-        });
-    });
-    // $.getJSON("../data.json", function (data) {
-    //     // 初始化评卷面板
-    //     $markQuestion.init(data.data);
-
-    //     // 给按钮绑定方法
-    //     $('.mark-footer [name="save"]').click(clickSaveButton);
+    //         // 给按钮绑定方法
+    //         $('.mark-footer [name="save"]').click(clickSaveButton);
+    //     });
     // });
+    $.getJSON("../data.json", function (data) {
+        // 初始化评卷面板
+        $markQuestion.init(data.data);
+
+        // 给按钮绑定方法
+        $('.mark-footer [name="save"]').click(clickSaveButton);
+        $('.mark-footer .btn').mousedown(mouseDownSaveButton);
+
+        // 如果页面有其他按钮的话，可以给每个按钮绑上一个 mousedown(mouseDownSaveButton)
+        // 或者可以给所有按钮都绑定该方法
+        // 这里我用的是给所有按钮绑定 mousedown，可以根据情况调试
+        
+    });
 });
 
 /*
@@ -73,6 +80,7 @@ var $markQuestion = function () {
             $markQuestionListItemClone.find('[type="number"]')
                 .attr('name', data.group[0].paperId + '#' + data.group[0].question[i].id + '#' + data.group[0].question[i].answerId)
                 .attr('min', 0)
+                .attr('max', data.group[0].question[i].score)
                 .keypress(validateKey);
             $('.container-fluid .row:eq(0) div:eq(0)').append($markQuestionListItemClone);
         }
@@ -88,21 +96,102 @@ var $markQuestion = function () {
     };
 }();
 
+// 摁下暂存按钮的回调函数
+function mouseDownSaveButton() {
+    $('.mark-content .mark-paper [type="number"]').unbind('blur');
+}
+
 // 点击暂存按钮的回调函数
 function clickSaveButton() {
+    
     var group = [];
+    var isScoreLegal = 1;
     for (var i = 0; i < $('.mark-content .mark-paper [type="number"]').length; ++i) {
         var markItem = {};
         var infoList = $('.mark-content .mark-paper:eq(' + i + ') [type="number"]').attr('name');
-        markItem.score = $('.mark-content .mark-paper:eq(' + i + ') [type="number"]').val();
+        var $score = $('.mark-content .mark-paper:eq(' + i + ') [type="number"]');
+
+        markItem.max = $score.attr('max');
+        markItem.min = $score.attr('min');
+        markItem.score = $score.val();
+        markItem.$score = $score;
         markItem.paperId = infoList.split('#')[0];
         markItem.questionId = infoList.split('#')[1];
         markItem.answerId = infoList.split('#')[2];
+        if(!isScoreGroupIllegal(markItem)) isScoreLegal = 0;
         group.push(markItem);
     }
-    console.log(group);
+    console.log('标识符', isScoreLegal);
+
+    if (isScoreLegal) {
+        // 数据无问题，向后台发请求
+    } else {
+        // 错误处理
+        makeOverIllegalScore(group, 0);
+    }
 }
 
+/*
+** 检验评分数据是否合法
+** @markItem   { Object }       评卷对象
+** @return     { Boolean }      true || false
+*/
+function isScoreGroupIllegal(markItem) {
+    var score = markItem.score;
+    var max = Number(markItem.max);
+    var min = Number(markItem.min);
+
+    // 是否为空，若为空直接返回真
+    if(score.length) {
+        score = Number(score);
+    } else {
+        return true;
+    }
+
+    // 多个小数点时为 NaN
+    if (isNaN(score)) return false;
+
+    // 比较大小
+    if (score >= min && score <= max) {
+        markItem.score = score;
+    } else {
+        markItem.score = undefined;
+        return false;
+    }
+
+    return true;
+}
+
+/*
+** 让用户修改不合法评分
+** @group   { Object }      点击暂存按钮回调获取的数据对象
+** @index   { string }      数据对象索引
+*/
+function makeOverIllegalScore(group, index) {
+    console.log(index);
+    var scoreObject = group[index];
+    if (group.length === index) return;
+    if (isUndefined(scoreObject.score)) {
+        scoreObject.$score.focus();
+        scoreObject.$score.blur(function () {
+            $(this).unbind('blur');
+            makeOverIllegalScore(group, (index + 1));
+        });
+    } else {
+        makeOverIllegalScore(group, (index + 1));
+    }
+    return;
+}
+
+/*
+** 判断是否为 undefined
+** @value   { Any }         需要判断的值
+** @return  { Boolean }     是否为 undefined 的布尔值
+*/
+function isUndefined(value) {
+    if (typeof (value) === "undefined") return true;
+    return false;
+}
 
 /*
 ** 将整数转换为汉字

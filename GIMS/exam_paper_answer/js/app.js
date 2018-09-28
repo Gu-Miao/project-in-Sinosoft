@@ -449,18 +449,15 @@ var $completion = function () {
             $questionClone.attr("name", data.question[i].id);
             $dom.find('.exam_page_block').append($questionClone);
 
-            var rightAnswer = "";
-            var checkAnswer = "";
-            var checkAnswerArray = data.question[i].optionContent.split('#');
+            var rightAnswer = [];
+            var checkAnswer = data.question[i].optionContent.split('#').join('，');;
 
             for (var j = 0; j < data.question[i].list.length; ++j) {
-                rightAnswer += data.question[i].list[j].content + " ";
+                rightAnswer.push(data.question[i].list[j].content);
             }
+            rightAnswer = rightAnswer.join('，');
 
             var $analysisClone = $analysis.clone();
-            for (var k = 0; k < checkAnswerArray.length; ++k) {
-                checkAnswer += checkAnswerArray[k] + "　";
-            }
             $analysisClone.find('.score .red').html(data.question[i].score);
             $analysisClone.find('.main .green').html(rightAnswer);
             $analysisClone.find('.main .black').html(checkAnswer);

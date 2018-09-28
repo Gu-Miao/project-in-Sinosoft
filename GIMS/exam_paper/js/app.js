@@ -359,6 +359,7 @@ var $completion = function () {
                 $optionClone.find('span').html(data.question[i].list[j].content);
                 $dom.find('.exam_answer:eq(' + i + ')').append($optionClone);
             }
+            $questionClone.find('input').attr('maxlength', '1000');
         }
         $('.exam_page').append($dom);
     }
@@ -388,7 +389,7 @@ var $shortAnswer = function () {
         + '<div class="exam_answer"></div>'
         + '</div>');
 
-    var $option = $('<textarea class="form-control" rows="3"></textarea>');
+    var $option = $('<textarea class="form-control" rows="3" maxlength="1000"></textarea>');
 
     // 初始化
     function init(data) {
@@ -417,6 +418,16 @@ var $shortAnswer = function () {
 
 // 提交试卷
 function getAnswer(event) {
+
+    console.log(event);
+
+    if (event.currentTarget === $(this)) {
+        // 用户点击的  
+        alert('用户点击了');
+    } else {
+        // JS代码调的  
+        alert('JS点击了');
+    }
 
     console.log(event.data);
 
@@ -551,6 +562,14 @@ function reduceTime(timeStr) {
     var hour = timeStr.split(':')[0];
     var min = timeStr.split(':')[1];
     var sec = timeStr.split(':')[2];
+
+    if (hour === "00" && min === "05" && sec === "00") {
+        $('#timeTip').modal('show');
+    }
+
+    if (hour === "00" && min === "00" && sec === "00") {
+        $('.pull-right button').trigger('click');
+    }
 
     if (sec === "00") {
         if (min === "00") {
