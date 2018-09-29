@@ -28,7 +28,7 @@ $(function () {
 
         var timer = window.setInterval(function () {
             showTimeout(reduceTime($('.time').html()));
-            if (!reduceTime($('.time').html())) window.clearInterval(timer);
+            if ($('.time').html() === "00:00:00") window.clearInterval(timer);
         }, 1000);
     });
 });
