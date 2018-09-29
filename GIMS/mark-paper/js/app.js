@@ -1,15 +1,6 @@
 $(function () {
-    // fetch("../data.json", { method: "get" }).then(function (res) {
-    //     console.log(res);
-    //     res.text().then(function (data) {
-    //         // 初始化评卷面板
-    //         $markQuestion.init(data.data);
-
-    //         // 给按钮绑定方法
-    //         $('.mark-footer [name="save"]').click(clickSaveButton);
-    //     });
-    // });
-    $.getJSON("../data.json", function (data) {
+    var url = window.location.href.split("index.html")[0] + "data.json";
+    $.getJSON(url, function (data) {
         // 初始化评卷面板
         $markQuestion.init(data.data);
 
@@ -20,7 +11,6 @@ $(function () {
         // 如果页面有其他按钮的话，可以给每个按钮绑上一个 mousedown(mouseDownSaveButton)
         // 或者可以给所有按钮都绑定该方法
         // 这里我用的是给所有按钮绑定 mousedown，可以根据情况调试
-        
     });
 });
 
@@ -103,7 +93,7 @@ function mouseDownSaveButton() {
 
 // 点击暂存按钮的回调函数
 function clickSaveButton() {
-    
+
     var group = [];
     var isScoreLegal = 1;
     for (var i = 0; i < $('.mark-content .mark-paper [type="number"]').length; ++i) {
@@ -118,7 +108,7 @@ function clickSaveButton() {
         markItem.paperId = infoList.split('#')[0];
         markItem.questionId = infoList.split('#')[1];
         markItem.answerId = infoList.split('#')[2];
-        if(!isScoreGroupIllegal(markItem)) isScoreLegal = 0;
+        if (!isScoreGroupIllegal(markItem)) isScoreLegal = 0;
         group.push(markItem);
     }
     console.log('标识符', isScoreLegal);
@@ -142,7 +132,7 @@ function isScoreGroupIllegal(markItem) {
     var min = Number(markItem.min);
 
     // 是否为空，若为空直接返回真
-    if(score.length) {
+    if (score.length) {
         score = Number(score);
     } else {
         return true;

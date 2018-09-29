@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>选择屏幕</title>
+    <link rel="stylesheet" href="./css/style.css">
+
+    <link rel="icon" href="../../common/res/favicon.ico">
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+        <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+    <div class="root">
+        <div class="opreation">
+            <button>到处参会人员名单</button>
+            <button>
+                <span>操作说明</span>
+            </button>
+        </div>
+        <div class="title">
+            <div></div>
+            <span>请选择会议时间：</span>
+        </div>
+        <div class="date">
+            <label for="start">开始时间：</label>
+            <input id="start" type="button" value=" " class="date-item" tabindex="1">
+            <label for="end">结束时间：</label>
+            <input id="end" type="button" value=" " class="date-item" tabindex="1">
+            <input type="button" value="确　定">
+        </div>
+        <div class="screen">
+            <div class="left">
+                <p>Left</p>
+                <button>点击选择左侧大屏画面</button>
+            </div>
+            <div class="right">
+                <p>Right</p>
+                <button>点击选择右侧大屏画面</button>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="../../common/js/jquery-1.11.2.min.js"></script>
+<script src="./js/rem.js"></script>
+<script src="./js/laydate.js"></script>
+<script src="./js/layer.js"></script>
+<script src="./js/app.js"></script>
+
+</html>

@@ -1,21 +1,24 @@
-#!/usr/bin/node
+const http = require("http");
+const fs = require("fs");
 
-var http = require("http");
-var fs = require("fs");
-var os = require("os");
+const host = "localhost";
+const port = 3000;
 
-var root = __dirname;
-console.log(root);
-var server = http.createServer(function(req, res) {
+const server = http.createServer(function (req, res) {
 
-  var fileName = root + req.url;
+    res.statusCode = 200;
 
-  console.log("req.url: ", req.url);
-  console.log("req.headers: ", req.headers);
+    if (req.url === "/") {
+        req.url = "/index.html";
+    }
 
+    var fileName = __dirname + req.url;
 
-  if(req.url != "/undefined") {
-    fs.createReadStream(fileName).pipe(res);
-  }
-  
-}).listen(8080);
+    if (req.url !== "/undefined") {
+        fs.createReadStream(fileName).pipe(res);
+    }
+});
+
+server.listen(port, host, function () {
+    console.log(`server is running on http://${host}:${port}`);
+});

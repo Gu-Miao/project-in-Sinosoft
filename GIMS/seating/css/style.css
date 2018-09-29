@@ -43,7 +43,7 @@ body {
     width: 1600px;
     height: 900px;
     background-color: #fff;
-    outline: 1px solid red;
+    /* outline: 1px solid red; */
     margin: 0 auto;
 }
 
