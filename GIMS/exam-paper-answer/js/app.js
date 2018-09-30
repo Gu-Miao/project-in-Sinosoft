@@ -200,7 +200,7 @@ var $singleChoise = function () {
                 $dom.find('.exam_answer:eq(' + i + ')').append($optionClone);
 
                 if (Number(data.question[i].list[j].isRight)) rightAnswer = j + 1;
-                if ((Number(checkAnswer) - 1) === j) $optionClone.find('[type="radio"]').attr('checked', true);
+                if ((Number(checkAnswer) - 1) === j) $optionClone.find('[type="radio"]')[0].checked = true;
 
             }
             var $analysisClone = $analysis.clone();
@@ -288,7 +288,7 @@ var $multipleChoice = function () {
 
                 if (Number(data.question[i].list[j].isRight)) rightAnswerArray.push(j + 1);
                 for(var k = 0; k < checkAnswerArray.length; ++k) {
-                    if(checkAnswerArray[k] == (j+1)) $optionClone.find('[type="checkbox"]').attr('checked', true);
+                    if(checkAnswerArray[k] == (j+1)) $optionClone.find('[type="checkbox"]')[0].checked = true;
                 }
             }
 
@@ -384,7 +384,7 @@ var $judgement = function () {
                 $dom.find('.exam_answer:eq(' + i + ')').append($optionClone);
 
                 if (Number(data.question[i].list[j].isRight)) rightAnswer = j + 1;
-                if ((Number(checkAnswer)-1) ===  j) $optionClone.find('[type="radio"]').attr('checked', true);
+                if ((Number(checkAnswer)-1) ===  j) $optionClone.find('[type="radio"]')[0].checked = true;
             }
 
             var $analysisClone = $analysis.clone();
