@@ -60,6 +60,9 @@ li {
     font-weight: 500;
     color: #fff;
     line-height: 1.8;
+    overflow: hidden;
+    text-overflow:ellipsis;
+    white-space: nowrap;
 }
 
 /* 半透明背景 */
