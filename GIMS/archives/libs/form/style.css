@@ -1,0 +1,84 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    font-size: 16px;
+}
+
+/* 左对齐 */
+.text-left {
+    text-align: left !important;
+}
+
+/* 主题内容 */
+.app {
+    padding: 20px;
+}
+
+/* 表单 */
+form.row {
+    margin-bottom: 40px;
+}
+
+/* 下拉菜单箭头 */
+form.row .btn .frcaret {
+    margin-top: 8px;
+    float: right;
+}
+
+/* 下拉菜单 */
+form.row .dropdown-menu {
+    width: 100%;
+}
+
+form.row .btn.btn-default.dropdown-toggle {
+    width: 100%;
+}
+/* 下拉菜单项 */
+form.row .dropdown-item {
+    display: block;
+    padding: 3px 20px;
+    clear: both;
+    font-weight: 400;
+    line-height: 1.42857143;
+    color: #333;
+    white-space: nowrap;
+    cursor: pointer;
+    user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -webkit-user-select: none;
+    background-color: #fff;
+}
+
+form.row .dropdown-item:hover {
+    background-color: #eee;
+}
+
+form.row .dropdown-item:active {
+    -webkit-box-shadow: inset 0 2px 5px rgba(0, 0, 0, .125);
+    box-shadow: inset 0 2px 5px rgba(0, 0, 0, .125);
+}
+
+/* 按钮组容器 */
+.btn-container {
+    width: 100%;
+    text-align: center;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    margin-top: 50px;
+    height: 45px;
+    line-height: 45px;
+    background-color: #ddd;
+}
+
+textarea {
+    width: 100%;
+    resize: vertical;
+    min-height: 80px;
+    height: 80px;
+    padding: 10px;
+}

@@ -1,0 +1,158 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+/* 主题蓝色 */
+.bg-mainblue {
+    background-color: #08c;
+}
+
+/* 文本居中 */
+.text-center {
+    text-align: center !important;
+}
+
+/* 主题内容 */
+.app {
+    width: 100%;
+    padding: 50px 30px;
+}
+
+.app::after {
+    display: block;
+    content: "";
+    clear: both;
+}
+
+/* 假的树 */
+.demoTree {
+    width: 200px;
+    height: 500px;
+    float: left;
+    background-color: #ccc;
+}
+
+/* 标签页组件容器 */
+.tab-component-container {
+    width: calc(100% - 230px);
+    margin-left: 20px;
+    float: left;
+    /* outline: 1px dashed red; */
+}
+
+
+/* 标签容器 */
+.tab-container {
+    width: 100%;
+    height: 40px;
+}
+
+.tab-container::after {
+    display: block;
+    content: "";
+    clear: both;
+}
+
+/* 标签 */
+.tab-container .tab {
+    float: left;
+    background-color: #fff;
+    padding: 0 10px;
+    border: 1px solid #ccc;
+    border-left: none;
+    font-size: 18px;
+    user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -webkit-user-select: none;
+    cursor: pointer;
+    height: 100%;
+    line-height: 40px;
+}
+
+.tab-container .tab:hover {
+    background-color: #eee;
+}
+
+.tab-container .tab:active {
+    -webkit-box-shadow: inset 0 3px 5px rgba(0, 0, 0, .125);
+    box-shadow: inset 0 3px 5px rgba(0, 0, 0, .125);
+}
+
+.tab-container .tab:first-child {
+    border-left: 1px solid #ccc;
+}
+
+/* 激活的标签 */
+.tab-container .tab-active {
+    border-bottom-color: #08c;
+    background-color: #08c;
+    color: white;
+}
+
+.tab-container .tab-active:hover {
+    background-color: #07b;
+}
+
+/* 下拉菜单 */
+.select-container {
+    float: right;
+}
+
+.select-container .dropdown-menu {
+    right: 0;
+    left: auto;
+}
+
+.select-container .dropdown-item {
+    display: block;
+    padding: 3px 20px;
+    clear: both;
+    font-weight: 400;
+    line-height: 1.42857143;
+    color: #333;
+    white-space: nowrap;
+    cursor: pointer;
+    user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -webkit-user-select: none;
+    background-color: #fff;
+}
+
+.select-container .dropdown-item:hover {
+    background-color: #eee;
+}
+
+.select-container .dropdown-item:active {
+    -webkit-box-shadow: inset 0 3px 5px rgba(0, 0, 0, .125);
+    box-shadow: inset 0 3px 5px rgba(0, 0, 0, .125);
+}
+
+/* 面板容器 */
+.tab-panel-container {
+    border: 1px solid #ccc;
+    margin-top: -1px;
+    border-radius: 5px;
+    border-top-left-radius: 0;
+}
+
+/* 面板 */
+.tab-panel-container .tab-panel {
+    padding: 20px 10px;
+}
+
+/* 面板中的表格 */
+.tab-panel-container .tab-panel table {
+    /* display: block;
+    margin: 0 auto; */
+}
+
+.tab-panel-container .tab-panel th {
+    text-align: inherit;
+}
+
+.tab-panel-container .tab-panel table input[type="checkbox"] {
+    cursor: pointer;
+}

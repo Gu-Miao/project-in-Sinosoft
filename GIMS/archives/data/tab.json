@@ -1,0 +1,27 @@
+﻿[
+    {
+        "TABLE_NAME": "e_tjdahz",
+        "TABLE_AUXI_NAME": "文书档案案卷目录",
+        "TABLE_CHN_NAME": "文书案卷"
+    },
+    {
+        "TABLE_NAME": "e_tjhzwjn",
+        "TABLE_AUXI_NAME": "文书档案卷内文件目录\n",
+        "TABLE_CHN_NAME": "文书卷内"
+    },
+    {
+        "TABLE_NAME": "e_tjdahz",
+        "TABLE_AUXI_NAME": "文书档案案卷目录",
+        "TABLE_CHN_NAME": "文书案卷"
+    },
+    {
+        "TABLE_NAME": "e_tjwsjian",
+        "TABLE_AUXI_NAME": "文书简化",
+        "TABLE_CHN_NAME": "文书简化"
+    },
+    {
+        "TABLE_NAME": "e_e_year_qgda",
+        "TABLE_AUXI_NAME": "q2",
+        "TABLE_CHN_NAME": "q2"
+    }
+]
