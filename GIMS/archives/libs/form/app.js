@@ -1,3 +1,10 @@
+var url = ""; // url 前缀
+if (window.location.href.split('github').length) {
+    url = "/GMIS/archives";
+} else {
+    url = "";
+}
+
 $(function () {
 
     // 加载表单
@@ -7,7 +14,7 @@ $(function () {
 // 初始化表单
 function initForm() {
     $.ajax({
-        url: '/data/form.json',
+        url: url + '/data/form.json',
         type: 'get',
         success: function (data) {
 

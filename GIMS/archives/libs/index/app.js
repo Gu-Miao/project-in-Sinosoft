@@ -1,5 +1,11 @@
 // 全局变量
 var tabData; // 记录是哪个当前标签页，和选中的上一级列表项的信息
+var url = ""; // url 前缀
+if (window.location.href.split('github').length) {
+    url = "/GMIS/archives";
+} else {
+    url = "";
+}
 
 $(function () {
 
@@ -33,7 +39,7 @@ function initPage() {
  */
 function initTabs() {
     $.ajax({
-        url: '/data/tab.json',
+        url: url + '/data/tab.json',
         type: 'get',
         success: function (data) {
 
@@ -111,7 +117,7 @@ function initPanel() {
  */
 function initTableHead() {
     $.ajax({
-        url: "/data/form.json",
+        url: url + "/data/form.json",
         type: "get",
         success: function (data) {
             var data = JSON.parse(data);
@@ -159,7 +165,7 @@ function newlyAdded() {
     layer.open({
         type: 2,
         title: '新增',
-        content: './form.html',
+        content: url + './form.html',
         area: ['800px', 'auto'],
         offset: '30px',
         resize: false,
