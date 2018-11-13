@@ -1,9 +1,4 @@
-var url = ""; // url 前缀
-if (window.location.href.split('github').length) {
-    url = "/GMIS/archives";
-} else {
-    url = "";
-}
+var form = []; // 表单数据
 
 $(function () {
 
@@ -14,7 +9,7 @@ $(function () {
 // 初始化表单
 function initForm() {
     $.ajax({
-        url: url + '/data/form.json',
+        url: '/data/form.json',
         type: 'get',
         success: function (data) {
 
@@ -37,20 +32,24 @@ function initForm() {
 
             // 对数据进行排序
             usefullData.sort(sortByNumber('COLUMN_ORDER'));
-            console.log("有用的数据\n", usefullData);
+            console.log("加载表单的有效的数据\n", usefullData);
+
+            // 给全局变量赋值
+            form = usefullData;
 
             for (let i = 0; i < usefullData.length; ++i) {
                 loadInput(usefullData[i]);
             }
-
-            // 显示树的对话框
-            $('.treelayer').click(showTreeLayer);
 
             // 让 iframe 自适应高度，但最高 500px
             $('iframe', window.parent.document).height($(document).height()).css({
                 'max-height': '500px',
                 overflow: 'auto'
             });
+
+            // 显示树的对话框
+            $('.treelayer').click(showTreeLayer);
+
 
             // 给保存按钮绑定方法
             $('.app .btn.btn-primary').click(submitForm);
@@ -61,33 +60,6 @@ function initForm() {
             console.log("加载表单失败，错误信息：\n", err);
         }
     });
-}
-
-/**
- * 数组根据数组对象中的某个属性值进行排序
- * 用法：arr.sort(sortBy('COLUMN_ORDER', false)) 表示根据 COLUMN_ORDER 属性对 arr 进行降序排列，若第二个参数不传递，默认表示升序排序
- * @param attr 排序的属性，只支持 Number 类型，或者 String 类型的数字
- * @param rev true 表示升序排列，false 降序排序
- */
-function sortByNumber(attr, rev) {
-    //第二个参数没有传递 默认升序排列
-    if (rev == undefined) {
-        rev = 1;
-    } else {
-        rev = (rev) ? 1 : -1;
-    }
-
-    return function (a, b) {
-        a = Number(a[attr]);
-        b = Number(b[attr]);
-        if (a < b) {
-            return rev * -1;
-        }
-        if (a > b) {
-            return rev * 1;
-        }
-        return 0;
-    }
 }
 
 /**
@@ -125,7 +97,9 @@ function loadTextInput(data) {
     $('.app form.row').append($(''
         + '<div class="form-group col-sm-6">'
         + '<label>' + data.COLUMN_CHN_NAME + '</label>'
-        + '<input type="text" class="form-control" value="' + (data.COLUMN_VALUE_DEFAULT ? data.COLUMN_VALUE_DEFAULT : "") + '">'
+        + '<input type="text" class="form-control" value="'
+        + (data.COLUMN_VALUE_DEFAULT ? data.COLUMN_VALUE_DEFAULT : "")
+        + '" name="' + data.COLUMN_NAME + '">'
         + '</div>')
     );
 }
@@ -154,6 +128,7 @@ function loadDropdown(data) {
         + '<li class="dropdown-item">删除</li>'
         + '</ul>'
         + '</div>'
+        + '<em class="input-em text-info"></em>'
         + '</div>'
     ));
 }
@@ -167,6 +142,7 @@ function loadTextArea(data) {
         + '<div class="form-group col-sm-12">'
         + '<label>' + data.COLUMN_CHN_NAME + '</label>'
         + '<textarea>' + (data.COLUMN_VALUE_DEFAULT ? data.COLUMN_VALUE_DEFAULT : "") + '</textarea>'
+        + '<em class="input-em text-info"></em>'
         + '</div>'
     ));
 }
@@ -180,6 +156,7 @@ function loadTreeLayer(data) {
         + '<div class="form-group col-sm-6">'
         + '<label>' + data.COLUMN_CHN_NAME + '</label>'
         + '<input type="text" class="form-control treelayer" value="' + (data.COLUMN_VALUE_DEFAULT ? data.COLUMN_VALUE_DEFAULT : "") + '">'
+        + '<em class="input-em text-info"></em>'
         + '</div>')
     );
 }
@@ -189,7 +166,14 @@ function loadTreeLayer(data) {
  * @param data 加载F所需要的数据对象
  */
 function loadF(data) {
-    var $form = $('.app form.row');
+    $('.app form.row').append($(''
+        + '<div class="form-group col-sm-6">F'
+        + '<label>' + data.COLUMN_CHN_NAME + '</label>'
+        + '<input type="text" class="form-control" value="'
+        + (data.COLUMN_VALUE_DEFAULT ? data.COLUMN_VALUE_DEFAULT : "")
+        + '" name="' + data.COLUMN_NAME + '">'
+        + '</div>')
+    );
 }
 
 /**
@@ -201,10 +185,173 @@ function showTreeLayer() {
     });
 }
 
+/** 
+ * 校验表单数据
+ */
+function checkFormData() {
+    var isLegal = true;
+    for (let i = 0; i < $('.app form.row .form-group').length; ++i) {
+        if ($('.app form.row .form-group:eq(' + i + ') input[type="text"]').length) {
+            if (!checkTextInput(i)) isLegal = false;
+        } else if ($('.app form.row .form-group:eq(' + i + ') .dropdown-toggle').length) {
+            if (!checkDropDown(i)) isLegal = false;
+        } else if ($('.app form.row .form-group:eq(' + i + ') textarea').length) {
+            if (!checkTextarea(i)) isLegal = false;
+        }
+    }
+
+    return isLegal;
+}
+
+/**
+ * 校验值类型
+ * @param value 用户输入的值
+ * @param data 数据中规定的值类型
+ * @return 是否合法
+ */
+function checkValueByType(index, value, data) {
+    switch (data.COLUMN_TYPE) {
+        case "1":
+            return checkStringType(index, value, data);
+        case "2":
+            return checkIntType(index, value, data);
+        case "3":
+            return checkFloatType(index, value, data);
+        case "4":
+            return checkTimeType(index, value, data);
+        case "5":
+            return checkDateType(index, value, data);
+        default:
+            return false;
+    }
+}
+
+/**
+ * 校验字符串类型
+ * @param index 表单控件的索引值
+ * @param value 需要校验的值
+ * @param data 校验合法性的数据对象
+ * @return 是否合法
+ */
+function checkStringType(index, value, data) {
+
+    if (data.COLUMN_CAN_NULL === "F" && value.length === 0) {
+        logColorStr(index + '. ' + form[index] + '校验未通过', 'red');
+        return false;
+    }
+
+    if (value.length > data.COLUMN_WIDTH) {
+        logColorStr(index + '. ' + form[index] + '校验未通过', 'red');
+        return false;
+    }
+
+
+    logColorStr(index + '. ' + form[index].COLUMN_CHN_NAME + '校验通过', 'green');
+    return true;
+}
+
+/**
+ * 校验整数类型
+ * @param index 表单控件的索引值
+ * @param value 需要校验的值
+ * @param data 校验合法性的数据对象
+ * @return 是否合法
+ */
+function checkIntType(index, value, data) {
+
+    logColorStr("整数校验", "#08c");
+    console.log(isNaN(value));
+    console.log(isNaN(""));
+    console.log(isNaN(" "));
+    console.log(isNaN("\n"));
+    console.log(isNaN(" \n"));
+}
+
+/**
+ * 校验小数类型
+ * @param index 表单控件的索引值
+ * @param value 需要校验的值
+ * @param data 校验合法性的数据对象
+ * @return 是否合法
+ */
+function checkFloatType(index, value, data) {
+
+}
+
+/**
+ * 校验字符串类型
+ * @param index 表单控件的索引值
+ * @param value 需要校验的值
+ * @param data 校验合法性的数据对象
+ * @return 是否合法
+ */
+function checkTimeType(index, value, data) {
+
+}
+
+/**
+ * 校验日期类型
+ * @param index 表单控件的索引值
+ * @param value 需要校验的值
+ * @param data 校验合法性的数据对象
+ * @return 是否合法
+ */
+function checkDateType(index, value, data) {
+
+}
+
+/**
+ * 校验文本框的合法性
+ * @param index 文本框容器在表单中的索引
+ * @return  是否合法
+ */
+function checkTextInput(index) {
+
+    // 获取元素和值
+    var $input = $('.app form.row .form-group:eq(' + index + ') input[type="text"]');
+    var val = $input.val();
+    var label = $('.app form.row .form-group:eq(' + index + ') label').html();
+    var validatorData = form[index];
+
+    if (label !== validatorData.COLUMN_CHN_NAME) {
+        console.log(index + '.' + label + ' COLUMN_CHN_NAME %c 校验失败 ' + validatorData.COLUMN_CHN_NAME, "color:red;");
+        return false;
+    }
+
+    // 分类校验
+    checkValueByType(index, val, validatorData);
+
+    return true;
+}
+
+/**
+ * 校验下拉菜单的合法性
+ * @param index 下拉菜单容器在表单中的索引
+ * @return  是否合法
+ */
+function checkDropDown(index) {
+
+}
+
+/**
+ * 校验文本域的合法性
+ * @param index 文本域容器在表单中的索引
+ * @return  是否合法
+ */
+function checkTextarea(index) {
+
+}
+
 /**
  * 保存表单内容并提交
  */
 function submitForm() {
+
+    // 进行表单校验
+    if (!checkFormData()) {
+        // layer.msg("表单数据不合法，请修改后重试！");
+        return;
+    }
 
     // 声明表单提交的数据
     var formData = [];
@@ -266,8 +413,6 @@ function getTextareaValue(index) {
 }
 
 
-
-
 {/* 
 <div class="form-group col-sm-6">
     <label for="exampleInputEmail1">Email address</label>
@@ -310,10 +455,3 @@ function getTextareaValue(index) {
     <button type="submit" class="btn btn-default">Submit</button>
 </div>*/
 }
-
-{/* <div class="form-item-container">
-    <label for="" class="form-item-label">
-        <span class="form-item-title">text input:</span>
-        <input type="text" name="" id="" class="form-item">
-    </label>
-</div> */}

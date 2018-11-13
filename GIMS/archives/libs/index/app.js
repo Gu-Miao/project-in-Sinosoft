@@ -1,11 +1,7 @@
 // 全局变量
 var tabData; // 记录是哪个当前标签页，和选中的上一级列表项的信息
-var url = ""; // url 前缀
-if (window.location.href.split('github').length) {
-    url = "/GMIS/archives";
-} else {
-    url = "";
-}
+var tHeadData; // 表头标签
+var checkBoxData = []; // 选中的复选框的信息
 
 $(function () {
 
@@ -39,7 +35,7 @@ function initPage() {
  */
 function initTabs() {
     $.ajax({
-        url: url + '/data/tab.json',
+        url: '/data/tab.json',
         type: 'get',
         success: function (data) {
 
@@ -84,7 +80,6 @@ function switchTab() {
 
     // 初始化面板
     initPanel();
-
 }
 
 /**
@@ -107,9 +102,6 @@ function initPanel() {
 
     // 加载表头
     initTableHead();
-
-    // 加载表格内容
-    initTableBody();
 }
 
 /**
@@ -117,7 +109,7 @@ function initPanel() {
  */
 function initTableHead() {
     $.ajax({
-        url: url + "/data/form.json",
+        url: "/data/form.json",
         type: "get",
         success: function (data) {
             var data = JSON.parse(data);
@@ -133,7 +125,9 @@ function initTableHead() {
                 }
             }
 
-            console.log("有用的数据\n", usefullData);
+            usefullData.sort(sortByNumber('COLUMN_ORDER'));
+            console.log("加载表头的有效数据\n", usefullData);
+            tHeadData = usefullData;
 
             // 加载表头
             for (let i = 0; i < usefullData.length; ++i) {
@@ -142,6 +136,9 @@ function initTableHead() {
                 }
             }
             $('table thead tr').prepend($('<th>选择</th>'));
+
+            // 加载表格内容
+            initTableBody();
 
         },
         error: function (err) {
@@ -155,7 +152,44 @@ function initTableHead() {
  * 加载表格内容
  */
 function initTableBody() {
+    $.ajax({
+        url: '/data/e_tjdahz.json',
+        type: 'get',
+        success: function (data) {
 
+            // 解析数据
+            var data = JSON.parse(data);
+            console.log("加载列表内容的数据", data);
+
+            for (let i = 0; i < data.length; ++i) {
+                var $tr = $('<tr></tr>')
+                $('.tab-panel table tbody').append($tr);
+                for (let j = 0; j < tHeadData.length; ++j) {
+                    if (tHeadData[j].COLUMN_AS_SIMQUERY === 'T') {
+                        var keyStr = tHeadData[j].COLUMN_NAME.toUpperCase('utf8');
+                        $tr.append($('<td>' + (data[i][keyStr] ? data[i][keyStr] : '') + '</td>'));
+                    }
+                }
+                $tr.prepend($('<td class="text-center"><input type="checkbox" value="' + data[i].RECID + '"></td>'));
+                $tr.find('td input[type="checkbox"]').change(changeCheckBoxState)
+            }
+
+        }
+    });
+}
+
+/**
+ * 改变复选框状态
+ */
+function changeCheckBoxState() {
+
+    if ($(this).prop('checked') === true || $(this).prop('checked') === 'checked') {
+        checkBoxData.push($(this).val());
+        console.log("添加复选框数据", checkBoxData);
+    } else {
+        checkBoxData.removeItem($(this).val());
+        console.log("删除复选框数据", checkBoxData);
+    }
 }
 
 /**
@@ -165,7 +199,7 @@ function newlyAdded() {
     layer.open({
         type: 2,
         title: '新增',
-        content: url + './form.html',
+        content: './form.html',
         area: ['800px', 'auto'],
         offset: '30px',
         resize: false,

@@ -2,16 +2,16 @@
     {
         "TABLE_NAME": "e_tjdahz",
         "TABLE_CHN_NAME": "文书档案案卷目录",
-        "COLUMN_NAME": "page_num",
+        "COLUMN_NAME": "page_num", // 英文名
         "COLUMN_ORDER": "7", // 表单 顺序
         "COLUMN_CHN_NAME": "卷内页数", // 列表显示内容
         "COLUMN_CLASS": "2",
         "COLUMN_TYPE": "2", // 表单 值类型
-        "COLUMN_WIDTH": "0",
-        "COLUMN_POINT": "0",
+        "COLUMN_WIDTH": "0", // 字段长度
+        "COLUMN_POINT": "0", // 小数点位数
         "COLUMN_IS_KEY": null,
         "COLUMN_INDEX_NAME": null,
-        "COLUMN_CAN_NULL": "T",
+        "COLUMN_CAN_NULL": "T", // 字段是否可以为空
         "COLUMN_CAN_REPEAT": "T",
         "COLUMN_VISIBLE": "T", // 表单可见
         "COLUMN_FORMAT": null,
@@ -614,7 +614,7 @@
         "COLUMN_AS_SECRET": "F",
         "COLUMN_INHERIT": "F",
         "COLUMN_AUTO_ADD": null,
-        "COLUMN_INPUT_TYPE": "F",
+        "COLUMN_INPUT_TYPE": "T",
         "COLUMN_SELECT_NO": "fonds_no",
         "NOTE": null,
         "COLUMN_AS_SIMQUERY": "T",

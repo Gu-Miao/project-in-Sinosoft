@@ -73,6 +73,7 @@ form.row .dropdown-item:active {
     height: 45px;
     line-height: 45px;
     background-color: #ddd;
+    z-index: 999;
 }
 
 textarea {

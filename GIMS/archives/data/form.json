@@ -20,7 +20,7 @@
         "COLUMN_AS_SECRET": "F",
         "COLUMN_INHERIT": "F",
         "COLUMN_AUTO_ADD": "F",
-        "COLUMN_INPUT_TYPE": "A",
+        "COLUMN_INPUT_TYPE": "T",
         "COLUMN_SELECT_NO": null,
         "NOTE": null,
         "COLUMN_AS_SIMQUERY": "T",

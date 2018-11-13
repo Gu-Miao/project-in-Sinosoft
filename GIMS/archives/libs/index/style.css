@@ -144,11 +144,6 @@
 }
 
 /* 面板中的表格 */
-.tab-panel-container .tab-panel table {
-    /* display: block;
-    margin: 0 auto; */
-}
-
 .tab-panel-container .tab-panel th {
     text-align: inherit;
 }
