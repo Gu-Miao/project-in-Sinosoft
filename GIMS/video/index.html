@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="./lib/bootstrap/bootstrap.css">
     <link rel="stylesheet" href="./lib/video.js/dist/video-js.min.css">
     <link rel="stylesheet" href="./lib/index/style.css">
+    <style id="timeline"></style>
 </head>
 
 <body>
@@ -27,7 +28,32 @@
                 <span id="userInfo"></span>&nbsp;&nbsp;|
                 <a href="javascript:void(0);" id="logout" onclick="logout()">注销</a>&nbsp;&nbsp;
             </div>
-            <button class="history fr"><img src="./res/images/lishi.png" />&nbsp;&nbsp;观看历史</button>
+            <button class="history fr">
+                <img src="./res/images/lishi.png" />
+                &nbsp;&nbsp;观看历史
+                <ul class="history-list">
+                    <li>
+                        <p>动物世界: 第一集 荒野的呼唤</p>
+                        <span>已看完</span>
+                    </li>
+                    <li>
+                        <p>动物世界: 第二集 棕熊把守的水上要塞</p>
+                        <span>剩余时长: 03:20</span>
+                    </li>
+                    <li>
+                        <p>动物世界: 第三集 海豹的生活</p>
+                        <span>已看完</span>
+                    </li>
+                    <li>
+                        <p>动物世界: 第四集 被母狮拯救的小角马</p>
+                        <span>剩余时长: 01:03:20</span>
+                    </li>
+                    <li>
+                        <p>动物世界: 第五集 河里的捕食大师</p>
+                        <span>剩余时长: 00:37</span>
+                    </li>
+                </ul>
+            </button>
         </div>
     </div>
 
@@ -36,14 +62,14 @@
 
         <!-- 播放器 -->
         <div class="ysp-player">
-            <video id="player" class="video-js vjs-big-play-centered" controls preload="auto" poster="./res/images/poster.jpg"
-                data-setup='{}'>
-
-                <source src="./res/video/glassySky.mp4" type="video/mp4">
+            <video id="player" width="900" height="600" class="video-js vjs-big-play-centered" controls preload="auto" data-setup='{}'>
+                <source src="./res/video/popstar.mkv" type="video/mp4">
                 </source>
-                <source src="./res/video/glassySky.mp4" type="video/webm">
+                <source src="./res/video/popstar.mkv" type="video/webm">
                 </source>
-                <source src="./res/video/glassySky.mp4" type="video/ogg">
+                <source src="./res/video/popstar.mkv" type="video/ogg">
+                </source>
+                <source src="./res/video/popstar.mkv" type="video/mkv">
                 </source>
                 <p class="vjs-no-js">
                     To view this video please enable JavaScript, and consider upgrading to a web browser that
@@ -52,6 +78,11 @@
                     </a>
                 </p>
             </video>
+
+            <!-- 显示按钮 -->
+            <div class="extend extend_show" style="display: none;">
+                <img src="./res/images/extend_btn_show.png" alt="显示按钮">
+            </div>
         </div>
 
         <!-- 播放目录 -->
@@ -59,17 +90,18 @@
 
             <!-- 标题 -->
             <div class="ysp-player-menu-title">
-                <span>Glassy Sky</span>
+                <span></span>
             </div>
 
             <!-- 目录字样 -->
-            <div class="">
-
+            <div class="play-menu">
+                <img src="./res/images/menu.png" alt="菜单">
+                <span>目录</span>
             </div>
 
             <!-- 目录 -->
             <div id="cd-timeline" class="ysp-player-menu-panel cd-container">
-                <div class="cd-timeline-block">
+                <!-- <div class="cd-timeline-block">
 
                     <div class="cd-timeline-number">
                         <span class="cd-date">001</span>
@@ -89,7 +121,7 @@
                         <span class="cd-date">002</span>
                     </div>
 
-                    <div class="cd-timeline-img cd-played"></div>
+                    <div class="cd-timeline-img cd-playing"></div>
 
                     <div class="cd-timeline-content">
                         <span class="cd-date fl">棕熊把守的水上要塞</span>
@@ -103,7 +135,7 @@
                         <span class="cd-date">003</span>
                     </div>
 
-                    <div class="cd-timeline-img cd-played"></div>
+                    <div class="cd-timeline-img cd-play"></div>
 
                     <div class="cd-timeline-content">
                         <span class="cd-date fl">海豹的生活</span>
@@ -117,14 +149,26 @@
                         <span class="cd-date">004</span>
                     </div>
 
-                    <div class="cd-timeline-img cd-played"></div>
+                    <div class="cd-timeline-img cd-play"></div>
 
                     <div class="cd-timeline-content">
                         <span class="cd-date fl">被母狮拯救的小角马</span>
                         <span class="cd-date">03:05:00</span>
                     </div>
-                </div>
+                </div> -->
             </div>
+
+            <!-- 隐藏按钮 -->
+            <div class="extend_hide extend">
+                <img src="./res/images/extend_btn_hide.png" alt="隐藏按钮">
+            </div>
+        </div>
+
+        <!-- 当前视频名 -->
+        <div class="video-name">
+            <span></span>
+            <span></span>
+            <span></span>
         </div>
     </div>
 
@@ -142,7 +186,7 @@
 </body>
 <script src="./lib/jquery/jquery-1.11.2.min.js"></script>
 <script src="./lib/bootstrap/bootstrap.js"></script>
-<script src="./lib/video.js/dist/video.min.js"></script>
+<script src="./lib/video.js/dist/video.js"></script>
 <script src="./lib/index/app.js"></script>
 
 </html>

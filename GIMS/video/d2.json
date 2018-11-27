@@ -1,0 +1,22 @@
+[
+    {
+        "series": "Music Series",
+        "number": "1",
+        "name": "Glassy Sky MV",
+        "url": "./res/video/glassySky.mp4",
+        "state": "1",
+        "number": "2",
+        "poster": "./res/images/poster.jpg",
+        "duration": "02:39"
+    },
+    {
+        "series": "Music Series",
+        "number": "1",
+        "name": "K/DA —— POP/STAR",
+        "url": "./res/video/popstar.mkv",
+        "state": "1",
+        "number": "2",
+        "poster": "./res/images/poster1.jpeg",
+        "duration": "04:37"
+    }
+]
