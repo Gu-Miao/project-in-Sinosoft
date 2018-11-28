@@ -275,7 +275,8 @@ li {
 
 .logocon .history-list li {
     padding: 0 8px;
-    height: 50px;
+    height: 36px;
+    line-height: 36px;
 }
 
 .logocon .history-list li p {
@@ -463,7 +464,7 @@ li {
     box-shadow: 0 0 0 2px #d7e4ed;
 }
 
-.cd-timeline-img.cd-played {
+.cd-timeline-img.cd-finish {
     background: #0ae;
 }
 
@@ -471,12 +472,12 @@ li {
     background: #333;
 }
 
-.cd-timeline-img.cd-playing {
+.cd-timeline-img.cd-played {
     background: #0ae;
     border: none;
 }
 
-.cd-timeline-img.cd-playing::after {
+.cd-timeline-img.cd-played::after {
     display: block;
     background-color: #333;
     content: '';
@@ -534,4 +535,28 @@ li {
     color: #7a7a7a;
     width: 100%;
     margin-top: 120px;
+}
+
+.next {
+    line-height: 30px;
+    padding-left: 10px;
+    font-size: 14px;
+    background-color: #333;
+    color: #ccc;
+    user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -webkit-user-select: none;
+}
+
+.next span:first-child {
+    cursor: pointer;
+}
+
+.next button {
+    background-color: inherit;
+    border: none;
+    color: #0ae;
+    outline: none;
+    cursor: pointer;
 }
